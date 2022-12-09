@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using AutoPartsStore.Models;
 using AutoPartsStore.UserControls;
 using AutoPartsStore.Windows;
+using AutoPartsStore.Windows.UserWindows;
 
 namespace AutoPartsStore
 {
@@ -33,6 +34,11 @@ namespace AutoPartsStore
             InitializeComponent();
             context = new db_autopartsstoreContext();
             enteredUser = user;
+
+            if (user != null)
+            {
+                GoToUserProfileButton.Visibility = Visibility.Visible;
+            }
 
             // Тут сделать проверку на уровень доступа пользователя (Возможно не надо, роль можно смотреть при переходах в формы)
 
@@ -106,6 +112,18 @@ namespace AutoPartsStore
         private void AuthorizationButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void GoToUserProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserProfileWindow userProfileWindow = new UserProfileWindow(enteredUser);
+            userProfileWindow.ShowDialog();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            AuthorizationWindow authorizationWindow = new AuthorizationWindow();
+            authorizationWindow.Show();
         }
     }
 }

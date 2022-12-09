@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AutoPartsStore.Models;
+using AutoPartsStore.UserControls;
 
 namespace AutoPartsStore.Windows
 {
@@ -27,15 +28,18 @@ namespace AutoPartsStore.Windows
         {
             InitializeComponent();
             currentUser = user;
+            Autopart = autopart;
 
             LoadLabels();
+            LoadReviews();
             LoadImage();
         }
 
         private void LoadLabels()
         {
-            //Status statusTest = db_autopartsstoreContext.DbContext.Status.Where(u =>
-            //u.IdStatus == Autopart.IdStatusAutoPart).FirstOrDefault();
+            Status statusTest = db_autopartsstoreContext.DbContext.Status.Where(u =>
+            u.IdStatus == Autopart.IdStatusAutoPart).FirstOrDefault();
+
             Manufracturer manufracturer = db_autopartsstoreContext.DbContext.Manufracturer.Where(m =>
             m.IdManufracturer == Autopart.IdManufracturer).FirstOrDefault();
 
@@ -46,6 +50,35 @@ namespace AutoPartsStore.Windows
             ManufracturerLabel.Content = $"Производитель: {manufracturer.ManufracturerName}";
             CharacterisikLabel.Content = $"Характеристика: {characteristik.Applicability}";
             CostLabel.Content = $"Цена: {Autopart.Cost}";
+
+        }
+
+        private void LoadReviews()
+        {
+            List<Review> reviews = new List<Review>();
+            reviews = db_autopartsstoreContext.DbContext.Review.Where(r =>
+            r.IdAutoPart == Autopart.IdAutoPart).ToList();
+
+            ReviewStackPanel.Children.Clear();
+            foreach (Review rvw in reviews)
+            {
+                ReviewStackPanel.Children.Add(new ReviewUserControl(rvw)
+                {
+                    Width = GetOptimizedWidth()
+                });
+            }
+        }
+
+        private double GetOptimizedWidth()
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                return RenderSize.Width - 55;
+            }
+            else
+            {
+                return Width - 55;
+            }
         }
 
         private void LoadImage()

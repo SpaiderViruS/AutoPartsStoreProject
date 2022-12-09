@@ -55,7 +55,8 @@ namespace AutoPartsStore.Windows
         private void EnterAsGuest_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow(null);
-            mainWindow.ShowDialog();
+            mainWindow.Show();
+            Close();
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿<Window x:Class="AutoPartsStore.Windows.AutoPartInfoWindow"
+﻿<Window x:Class="AutoPartsStore.Windows.UserWindows.UserProfileWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AutoPartsStore.Windows"
+        xmlns:local="clr-namespace:AutoPartsStore.Windows.UserWindows"
         mc:Ignorable="d"
-        Title="AutoPartInfoWindow" Height="450" Width="800">
+        Title="UserProfileWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -13,8 +13,7 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-
-        <Label Content="Информация о запчасти" HorizontalAlignment="Center" FontSize="16"/>
+        <Label Content="Профиль покупателя" HorizontalAlignment="Center" FontSize="16"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -22,13 +21,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="ImageAutoPartImageBox" Width="200" Height="200" Margin="15"/>
+            <Image x:Name="UserImage" Width="200" Height="200" Margin="15"/>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label x:Name="AutoPartNameLabel" FontSize="14"/>
-                <Label x:Name="ManufracturerLabel" FontSize="14"/>
-                <Label x:Name="CharacterisikLabel" FontSize="14"/>
-                <Label x:Name="CostLabel"/>
+                <Label x:Name="NameUserLabel" FontSize="14"/>
+                <Label x:Name="SurnameUserLabel" FontSize="14"/>
+                <Label x:Name="PatronomicUserLabel" FontSize="14"/>
             </StackPanel>
         </Grid>
 
@@ -44,10 +42,9 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
+
             <Button x:Name="BackButton" Content="Назад"></Button>
-            <Button x:Name="ToBusketButton" Grid.Column="1" Content="В корзину"></Button>
-            <Button x:Name="EditButton" Grid.Column="2" Content="Редактировать" Visibility="Collapsed"></Button>
+            <Button x:Name="ToBusketButton" Grid.Column="1" Content="Корзина"></Button>
         </Grid>
     </Grid>
 </Window>

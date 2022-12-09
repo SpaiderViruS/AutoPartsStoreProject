@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AutoPartsStore"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="900"
-        SizeChanged="Window_SizeChanged">
+        SizeChanged="Window_SizeChanged" Closing="Window_Closing">
     <Grid>
         
         <!--Левая колонка-->
@@ -35,7 +35,12 @@
         <ListView Grid.Row="1" x:Name="AutoPathListView" SelectionMode="Single" MouseDoubleClick="AutoPathListView_MouseDoubleClick"/>
 
         <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Button x:Name="AuthorizationButton" Content="Авторизоваться" Margin="5" Click="AuthorizationButton_Click"/>
+            <Button x:Name="GoToUserProfileButton" Content="Профиль" Margin="5" Grid.Column="1" Visibility="Collapsed" Click="GoToUserProfileButton_Click"/>
         </Grid>
 
         
