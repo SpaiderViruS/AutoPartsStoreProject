@@ -20,11 +20,13 @@ namespace AutoPartsStore.Windows.UserWindows
     /// </summary>
     public partial class UserProfileWindow : Window
     {
+        public static db_autopartsstoreContext DbContext;
         User User { get; set; }
         public UserProfileWindow(User user)
         {
             InitializeComponent();
             User = user;
+            DbContext = new db_autopartsstoreContext();
 
             LoadLabels();
             LoadImage();
@@ -40,5 +42,17 @@ namespace AutoPartsStore.Windows.UserWindows
         {
 
         }
+
+        private void ToBusketButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserBusketWindow userBusketWindow = new UserBusketWindow(User);
+            userBusketWindow.ShowDialog();
+        }
+
+        private void ToOrders_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

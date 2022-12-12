@@ -115,6 +115,13 @@ namespace AutoPartsStore.Models
 
                 entity.Property(e => e.IdUser).HasColumnName("idUser");
 
+                entity.Property(e => e.OrderStatus)
+                    .IsRequired()
+                    .HasColumnName("orderStatus")
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
                 entity.HasOne(d => d.IdAutoPartNavigation)
                     .WithMany(p => p.Busket)
                     .HasForeignKey(d => d.IdAutoPart)

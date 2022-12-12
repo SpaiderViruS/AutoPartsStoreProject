@@ -29,6 +29,8 @@ namespace AutoPartsStore.Windows
             InitializeComponent();
             currentUser = user;
             Autopart = autopart;
+            DataContext = db_autopartsstoreContext.DbContext;
+            DbContext = MainWindow.context;
 
             LoadLabels();
             LoadReviews();
@@ -50,7 +52,6 @@ namespace AutoPartsStore.Windows
             ManufracturerLabel.Content = $"Производитель: {manufracturer.ManufracturerName}";
             CharacterisikLabel.Content = $"Характеристика: {characteristik.Applicability}";
             CostLabel.Content = $"Цена: {Autopart.Cost}";
-
         }
 
         private void LoadReviews()
@@ -69,6 +70,11 @@ namespace AutoPartsStore.Windows
             }
         }
 
+        private void LoadImage()
+        {
+
+        }
+
         private double GetOptimizedWidth()
         {
             if (WindowState == WindowState.Maximized)
@@ -81,9 +87,37 @@ namespace AutoPartsStore.Windows
             }
         }
 
-        private void LoadImage()
+        private void ToBusketButton_Click(object sender, RoutedEventArgs e)
         {
+            if (currentUser != null)
+            {
+                Status status = db_autopartsstoreContext.DbContext.Status.Where(u =>
+            u.IdStatus == Autopart.IdStatusAutoPart).FirstOrDefault();
+                if (status.StatusName != "Нет в наличии")
+                {
+                    Busket toBusket = new Busket();
+                    toBusket.IdAutoPart = Autopart.IdAutoPart;
+                    toBusket.IdUser = currentUser.IdUser;
+                    toBusket.OrderStatus = "Формируется";
 
+                    DbContext.Busket.Add(toBusket);
+                    DbContext.SaveChanges();
+
+                    MessageBox.Show($"Товар {Autopart.AutoPartName} успешно добавлен в корзину", "Уведомление",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Товара нет в наличии, приносим извинения", "Уведомление",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Чтобы купить данный товар, сначала авторизируйтесь или зарегистрируйтесь",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
+
     }
 }

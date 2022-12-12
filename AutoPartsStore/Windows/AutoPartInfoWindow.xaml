@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoPartsStore.Windows"
         mc:Ignorable="d"
-        Title="AutoPartInfoWindow" Height="450" Width="800">
+        Title="AutoPartInfoWindow" Height="550" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -44,10 +44,10 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
             <Button x:Name="BackButton" Content="Назад"></Button>
-            <Button x:Name="ToBusketButton" Grid.Column="1" Content="В корзину"></Button>
+            <Button x:Name="ToBusketButton" Grid.Column="1" Content="В корзину" Click="ToBusketButton_Click"></Button>
             <Button x:Name="EditButton" Grid.Column="2" Content="Редактировать" Visibility="Collapsed"></Button>
         </Grid>
+
     </Grid>
 </Window>

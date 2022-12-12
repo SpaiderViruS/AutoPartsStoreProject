@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AutoPartsStore.UserControls.ReviewUserControl"
+﻿<UserControl x:Class="AutoPartsStore.UserControls.UserBusketUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,13 +17,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Label x:Name="RaitingLabel" FontSize="16"/>
-            <Label x:Name="NameUser" />
+        <Image x:Name="AutoPartImage" Grid.Row="1" Width="100" Height="100" Margin="5"/>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1">
+            <Label x:Name="AutoPartNameLabel" Grid.Row="1" Grid.Column="1"/>
+            <Label x:Name="StatusLabel" FontSize="24" Grid.Row="1" Grid.Column="1"/>
         </StackPanel>
-
-        <Image x:Name="UserImage" Grid.Row="1" Width="100" Height="100" Margin="5" Stretch="Fill"/>
-
-        <Label x:Name="ReviewDescriptionLabel" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </UserControl>

@@ -17,6 +17,7 @@ namespace AutoPartsStore.Models
         public int IdBusket { get; set; }
         public int IdAutoPart { get; set; }
         public int IdUser { get; set; }
+        public string OrderStatus { get; set; }
 
         public virtual Autopart IdAutoPartNavigation { get; set; }
         public virtual User IdUserNavigation { get; set; }

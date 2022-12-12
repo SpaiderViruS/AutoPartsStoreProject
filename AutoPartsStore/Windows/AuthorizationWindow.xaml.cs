@@ -43,12 +43,14 @@ namespace AutoPartsStore.Windows
                 }
                 else
                 {
-                    MessageBox.Show("Неверный логин/пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Неверный логин/пароль", "Ошибка", 
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Заполните поля", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Заполните поля", "Уведомление", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

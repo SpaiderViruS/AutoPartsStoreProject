@@ -55,8 +55,7 @@ namespace AutoPartsStore.UserControls
             }
             else
             {
-#warning    Нету заглушки фотографии
-                //ImageAutoPart.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+                ImageAutoPart.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
             }
 
         }

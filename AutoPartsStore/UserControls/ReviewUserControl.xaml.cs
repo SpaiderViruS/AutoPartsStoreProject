@@ -22,29 +22,38 @@ namespace AutoPartsStore.UserControls
     public partial class ReviewUserControl : UserControl
     {
         Review Review { get; set; }
+        User User;
 
         public ReviewUserControl(Review review)
         {
             InitializeComponent();
             Review = review;
 
+            User = db_autopartsstoreContext.DbContext.User.Where(u =>
+            u.IdUser == Review.IdUser).FirstOrDefault();
+
             LoadLabels();
             LoadImage();
         }
 
         private void LoadLabels()
-        {
-            User user = db_autopartsstoreContext.DbContext.User.Where(u =>
-            u.IdUser == Review.IdUser).FirstOrDefault();
-
+        {          
             RaitingLabel.Content = Review.Raiting;
-            NameUser.Content = user.Name;
+            NameUser.Content = User.Name;
             ReviewDescriptionLabel.Content = Review.Description;
         }
 
         private void LoadImage()
         {
-
+            if (User.Image != null && User.Image.Length > 0)
+            {
+                Uri resUri = new Uri(Environment.CurrentDirectory + User.Image);
+                UserImage.Source = new BitmapImage(resUri);
+            }
+            else
+            {
+                UserImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
+            }
         }
 
     }

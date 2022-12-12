@@ -42,13 +42,61 @@ namespace AutoPartsStore
 
             // Тут сделать проверку на уровень доступа пользователя (Возможно не надо, роль можно смотреть при переходах в формы)
 
+            LoadListViews();
             RefreshWindow();
+        }
+
+        private void LoadListViews()
+        {
+            FilterListView.Items.Add("Все");
+            FilterListView.Items.Add("Все");
+            FilterListView.Items.Add("Все");
+            FilterListView.Items.Add("Все");
+
+            SortingListView.Items.Add("Все");
+            SortingListView.Items.Add("Наименование ↑");
+            SortingListView.Items.Add("Наименование ↓");
+            SortingListView.Items.Add("Стоимость ↑");
+            SortingListView.Items.Add("Стоимость ↓");
+
+            FilterListView.SelectedIndex = 0;
+            SortingListView.SelectedIndex = 0;
         }
 
         private void RefreshWindow()
         {
             List<Autopart> autopart = new List<Autopart>();
             autopart = context.Autopart.ToList();
+
+            if (!string.IsNullOrEmpty(SearchTextBox.Text.ToLower()))
+            {
+                autopart = autopart.Where(a =>
+                a.AutoPartName.ToLower().Contains(SearchTextBox.Text.ToLower())).ToList();
+            }
+
+            if (SortingListView.SelectedIndex != 1)
+            {
+                if (SortingListView.SelectedIndex == 1)
+                {
+                    autopart = autopart.OrderBy(a =>
+                    a.AutoPartName).ToList();
+                }
+                else if (SortingListView.SelectedIndex == 2)
+                {
+                    autopart = autopart.OrderByDescending(a =>
+                    a.AutoPartName).ToList();
+                }
+                else if (SortingListView.SelectedIndex == 3)
+                {
+                    autopart = autopart.OrderBy(a =>
+                    a.Cost).ToList();
+                }
+                else if (SortingListView.SelectedIndex == 4)
+                {
+                    autopart = autopart.OrderByDescending(a =>
+                    a.Cost).ToList();
+                }
+            }
 
             AutoPathListView.Items.Clear();
             foreach (Autopart ap in autopart)
@@ -88,23 +136,7 @@ namespace AutoPartsStore
                 AutoPartInfoWindow autoPartInfoWindow = new AutoPartInfoWindow(autopart, enteredUser);
                 autoPartInfoWindow.ShowDialog();
 
-                //if (Passenger != null)
-                //{
-                //    TourInfo tourInfo = new TourInfo(tour, Passenger);
-                //    tourInfo.ShowDialog();
-                //}
-                //else if (Captain != null)
-                //{
-                //    UpdateInsertTour updateInsertTour = new UpdateInsertTour(tour);
-                //    updateInsertTour.ShowDialog();
-                //}
 
-
-                //else
-                //{
-                //    TourInfo tourInfo = new TourInfo(tour, null);
-                //    tourInfo.ShowDialog();
-                //}
             }
             RefreshWindow();
         }
@@ -124,6 +156,21 @@ namespace AutoPartsStore
         {
             AuthorizationWindow authorizationWindow = new AuthorizationWindow();
             authorizationWindow.Show();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RefreshWindow();
+        }
+
+        private void SortingListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshWindow();
+        }
+
+        private void FilterListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshWindow();
         }
     }
 }

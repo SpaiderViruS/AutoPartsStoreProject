@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Поиск" FontSize="24"/>
-            <TextBox Grid.Column="1" Margin="5"/>
+            <TextBox x:Name="SearchTextBox" Grid.Column="1" Margin="5" TextChanged="SearchTextBox_TextChanged"/>
         </Grid>
 
         <ListView Grid.Row="1" x:Name="AutoPathListView" SelectionMode="Single" MouseDoubleClick="AutoPathListView_MouseDoubleClick"/>
@@ -55,10 +55,10 @@
             </Grid.RowDefinitions>
 
             <Label Content="Сортировка" FontSize="16"/>
-            <ListView x:Name="SortingListView" Grid.Row="1" SelectionMode="Single" />
+            <ListView x:Name="SortingListView" Grid.Row="1" SelectionMode="Single" SelectionChanged="SortingListView_SelectionChanged" />
 
             <Label Grid.Row="2" Content="Фильтрация" FontSize="16"/>
-            <ListView x:Name="FilterListView" Grid.Row="3" SelectionMode="Single"/>
+            <ListView x:Name="FilterListView" Grid.Row="3" SelectionMode="Single" SelectionChanged="FilterListView_SelectionChanged"/>
         </Grid>
         
         
