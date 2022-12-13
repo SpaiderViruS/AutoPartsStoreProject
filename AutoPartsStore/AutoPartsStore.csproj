@@ -148,8 +148,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\OrderUserControl.xaml.cs">
+      <DependentUpon>OrderUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UserBusketUserControl.xaml.cs">
       <DependentUpon>UserBusketUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ManagerWindows\EditInsertAutoPartWindow.xaml.cs">
+      <DependentUpon>EditInsertAutoPartWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ManagerWindows\EditInsertCharacteristik.xaml.cs">
+      <DependentUpon>EditInsertCharacteristik.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ManagerWindows\EditInsertManufracturerWindow.xaml.cs">
+      <DependentUpon>EditInsertManufracturerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ManagerWindows\UserOrderInfoWindow.xaml.cs">
+      <DependentUpon>UserOrderInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ManagerWindows\UsersOrdersManagmentWindow.xaml.cs">
+      <DependentUpon>UsersOrdersManagmentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\UserWindows\UserBusketWindow.xaml.cs">
       <DependentUpon>UserBusketWindow.xaml</DependentUpon>
@@ -161,6 +179,10 @@
       <DependentUpon>UserProfileWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\AutoPartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OrderUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,6 +237,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\ManagerWindows\EditInsertAutoPartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ManagerWindows\EditInsertCharacteristik.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ManagerWindows\EditInsertManufracturerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ManagerWindows\UserOrderInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ManagerWindows\UsersOrdersManagmentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\UserWindows\UserBusketWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

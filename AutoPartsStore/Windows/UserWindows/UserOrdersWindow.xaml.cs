@@ -21,16 +21,48 @@ namespace AutoPartsStore.Windows.UserWindows
     /// </summary>
     public partial class UserOrdersWindow : Window
     {
-        Busket Busket { get; set; }
-        public UserOrdersWindow(Busket busket)
+        db_autopartsstoreContext DbContext;
+        User User { get; set; }
+        public UserOrdersWindow(User user)
         {
             InitializeComponent();
-            Busket = busket;
+            User = user;
+            DbContext = UserProfileWindow.DbContext;
+
+            LoadListView();
         }
 
         private void LoadListView()
         {
+            List<Busket> displayBusket = new List<Busket>();
+            displayBusket = DbContext.Busket.ToList();
 
+            OrdersListView.Items.Clear();
+            foreach (Busket bsk in displayBusket)
+            {
+                if (bsk.IdUser == User.IdUser)
+                {
+                    if (bsk.OrderStatus != "Формируется")
+                    {
+                        OrdersListView.Items.Add(new UserBusketUserControl(bsk)
+                        {
+                            Width = GetOptimizedWidth()
+                        });
+                    }
+                }
+            }
+        }
+
+        private double GetOptimizedWidth()
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                return (RenderSize.Width - 55) / 1.5;
+            }
+            else
+            {
+                return (Width - 55) / 1.5;
+            }
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -40,7 +72,7 @@ namespace AutoPartsStore.Windows.UserWindows
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
 
     }

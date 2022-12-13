@@ -16,6 +16,7 @@ using AutoPartsStore.Models;
 using AutoPartsStore.UserControls;
 using AutoPartsStore.Windows;
 using AutoPartsStore.Windows.UserWindows;
+using AutoPartsStore.Windows.ManagerWindows;
 
 namespace AutoPartsStore
 {
@@ -26,8 +27,6 @@ namespace AutoPartsStore
     {
         public static db_autopartsstoreContext context;
         public static User enteredUser;
-        private int currentPage = 1;
-        private int countPages;
 
         public MainWindow(User user)
         {
@@ -38,6 +37,13 @@ namespace AutoPartsStore
             if (user != null)
             {
                 GoToUserProfileButton.Visibility = Visibility.Visible;
+                if (user.IdRole == 4)
+                {
+                    GoToOrdersButton.Visibility = Visibility.Visible;
+                    AddNewAutoPartButton.Visibility = Visibility.Visible;
+                    GoToUserProfileButton.Content = "Список покупателей";
+                }
+
             }
 
             // Тут сделать проверку на уровень доступа пользователя (Возможно не надо, роль можно смотреть при переходах в формы)
@@ -65,6 +71,7 @@ namespace AutoPartsStore
 
         private void RefreshWindow()
         {
+            AutoPathListView.Items.Clear();
             List<Autopart> autopart = new List<Autopart>();
             autopart = context.Autopart.ToList();
 
@@ -97,8 +104,7 @@ namespace AutoPartsStore
                     a.Cost).ToList();
                 }
             }
-
-            AutoPathListView.Items.Clear();
+            
             foreach (Autopart ap in autopart)
             {
                 AutoPathListView.Items.Add(new AutoPartUserControl(ap)
@@ -131,12 +137,8 @@ namespace AutoPartsStore
             {
                 Autopart autopart = ((AutoPartUserControl)AutoPathListView.SelectedItem).Autopart;
 
-                // Возможно вот здесь надо проверку на роль (пока нету)
-
                 AutoPartInfoWindow autoPartInfoWindow = new AutoPartInfoWindow(autopart, enteredUser);
                 autoPartInfoWindow.ShowDialog();
-
-
             }
             RefreshWindow();
         }
@@ -170,6 +172,20 @@ namespace AutoPartsStore
 
         private void FilterListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            RefreshWindow();
+        }
+
+        private void GoToOrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            UsersOrdersManagmentWindow usersOrdersManagmentWindow = new UsersOrdersManagmentWindow(enteredUser);
+            usersOrdersManagmentWindow.ShowDialog();
+            RefreshWindow();
+        }
+
+        private void AddNewAutoPartButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditInsertAutoPartWindow editInsertAutoPart = new EditInsertAutoPartWindow(null);
+            editInsertAutoPart.ShowDialog();
             RefreshWindow();
         }
     }

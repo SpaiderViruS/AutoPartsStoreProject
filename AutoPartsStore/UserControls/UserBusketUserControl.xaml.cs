@@ -22,26 +22,37 @@ namespace AutoPartsStore.UserControls
     public partial class UserBusketUserControl : UserControl
     {
         Busket Busket { get; set; }
+        Autopart Autopart;
         public UserBusketUserControl(Busket busket)
         {
             InitializeComponent();
             Busket = busket;
+            Autopart = db_autopartsstoreContext.DbContext.Autopart.Where(p =>
+            p.IdAutoPart == Busket.IdAutoPart).FirstOrDefault();
 
             LoadLabels();
+            LoadImage();
         }
 
         private void LoadLabels()
         {
-            Autopart currentAutoPart = db_autopartsstoreContext.DbContext.Autopart.Where(p =>
-            p.IdAutoPart == Busket.IdAutoPart).FirstOrDefault();
+            
 
-            AutoPartNameLabel.Content = $"Наименование: {currentAutoPart.AutoPartName}";
+            AutoPartNameLabel.Content = $"Наименование: {Autopart.AutoPartName}";
             StatusLabel.Content = $"Статус: {Busket.OrderStatus}";
         }
 
         private void LoadImage()
         {
-
+            if (Autopart.AutoPartImage != null && Autopart.AutoPartImage.Length > 0)
+            {
+                Uri resUri = new Uri(Environment.CurrentDirectory + Autopart.AutoPartImage);
+                AutoPartImage.Source = new BitmapImage(resUri);
+            }
+            else
+            {
+                AutoPartImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+            }
         }
 
     }

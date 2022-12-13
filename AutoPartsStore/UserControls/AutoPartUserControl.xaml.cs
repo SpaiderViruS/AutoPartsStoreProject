@@ -57,7 +57,6 @@ namespace AutoPartsStore.UserControls
             {
                 ImageAutoPart.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
             }
-
         }
     }
 }

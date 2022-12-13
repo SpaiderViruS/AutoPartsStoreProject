@@ -12,6 +12,7 @@ namespace AutoPartsStore.Models
         public Manufracturer()
         {
             Autopart = new HashSet<Autopart>();
+            Characteristik = new HashSet<Characteristik>();
         }
 
         public int IdManufracturer { get; set; }
@@ -20,5 +21,6 @@ namespace AutoPartsStore.Models
 
         public virtual Country IdCountryNavigation { get; set; }
         public virtual ICollection<Autopart> Autopart { get; set; }
+        public virtual ICollection<Characteristik> Characteristik { get; set; }
     }
 }

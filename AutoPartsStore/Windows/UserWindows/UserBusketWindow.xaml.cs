@@ -39,6 +39,15 @@ namespace AutoPartsStore.Windows.UserWindows
             List<Busket> displayBusket = new List<Busket>();
             displayBusket = DbContext.Busket.ToList();
 
+            //if (!string.IsNullOrEmpty(SearchTextBox.Text.ToLower()))
+            //{
+            //    Autopart tempAutoPart = DbContext.Autopart.Where(a =>
+            //    a.IdAutoPart == displayBusket.);
+
+            //    displayBusket = displayBusket.Where(a =>
+            //    a..ToLower().Contains(SearchTextBox.Text.ToLower())).ToList();
+            //}
+
             BusketListView.Items.Clear();
             foreach (Busket bsk in displayBusket)
             {

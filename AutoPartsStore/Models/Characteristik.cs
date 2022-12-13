@@ -16,8 +16,9 @@ namespace AutoPartsStore.Models
 
         public int IdCharacteristik { get; set; }
         public string Description { get; set; }
-        public string Applicability { get; set; }
+        public int Idmanufracturer { get; set; }
 
+        public virtual Manufracturer IdmanufracturerNavigation { get; set; }
         public virtual ICollection<Autopart> Autopart { get; set; }
     }
 }

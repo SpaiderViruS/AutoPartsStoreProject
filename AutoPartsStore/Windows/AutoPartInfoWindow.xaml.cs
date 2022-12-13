@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AutoPartsStore.Models;
 using AutoPartsStore.UserControls;
+using AutoPartsStore.Windows.ManagerWindows;
 
 namespace AutoPartsStore.Windows
 {
@@ -32,6 +33,15 @@ namespace AutoPartsStore.Windows
             DataContext = db_autopartsstoreContext.DbContext;
             DbContext = MainWindow.context;
 
+            if (user != null)
+            {
+                if (user.IdRole == 4)
+                {
+                    EditButton.Visibility = Visibility.Visible;
+                }
+            }
+
+
             LoadLabels();
             LoadReviews();
             LoadImage();
@@ -50,7 +60,7 @@ namespace AutoPartsStore.Windows
 
             AutoPartNameLabel.Content = $"Название: {Autopart.AutoPartName}";
             ManufracturerLabel.Content = $"Производитель: {manufracturer.ManufracturerName}";
-            CharacterisikLabel.Content = $"Характеристика: {characteristik.Applicability}";
+            CharacterisikLabel.Content = $"Характеристика: {characteristik.Description}";
             CostLabel.Content = $"Цена: {Autopart.Cost}";
         }
 
@@ -119,5 +129,10 @@ namespace AutoPartsStore.Windows
             }
         }
 
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditInsertAutoPartWindow editInsertAutoPart = new EditInsertAutoPartWindow(Autopart);
+            editInsertAutoPart.ShowDialog();
+        }
     }
 }

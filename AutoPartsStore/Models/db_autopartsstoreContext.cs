@@ -140,17 +140,23 @@ namespace AutoPartsStore.Models
 
                 entity.ToTable("characteristik");
 
-                entity.Property(e => e.IdCharacteristik).HasColumnName("idCharacteristik");
+                entity.HasIndex(e => e.Idmanufracturer)
+                    .HasName("FK_Characteristik_Manufracturer_idx");
 
-                entity.Property(e => e.Applicability)
-                    .HasColumnType("varchar(45)")
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                entity.Property(e => e.IdCharacteristik).HasColumnName("idCharacteristik");
 
                 entity.Property(e => e.Description)
                     .HasColumnType("varchar(250)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.Idmanufracturer).HasColumnName("IDManufracturer");
+
+                entity.HasOne(d => d.IdmanufracturerNavigation)
+                    .WithMany(p => p.Characteristik)
+                    .HasForeignKey(d => d.Idmanufracturer)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Characteristik_Manufracturer");
             });
 
             modelBuilder.Entity<Country>(entity =>

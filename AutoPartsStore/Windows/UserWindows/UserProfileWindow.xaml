@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoPartsStore.Windows.UserWindows"
         mc:Ignorable="d"
-        Title="UserProfileWindow" Height="450" Width="800">
+        Title="UserProfileWindow" Height="450" Width="800"
+        Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -21,7 +22,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
+            <StackPanel>
             <Image x:Name="UserImage" Width="200" Height="200" Margin="15"/>
+            <Button x:Name="ChangeUserImage" Content="Сменить изображение" Grid.Row="2" Click="ChangeUserImage_Click"/>
+            </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Label x:Name="NameUserLabel" FontSize="14"/>
