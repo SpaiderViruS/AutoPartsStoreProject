@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AutoPartsStore.Models;
 using AutoPartsStore.Windows.ManagerWindows;
+using AutoPartsStore.UserControls;
 
 namespace AutoPartsStore.Windows.ManagerWindows
 {
@@ -23,42 +24,55 @@ namespace AutoPartsStore.Windows.ManagerWindows
     {
         db_autopartsstoreContext DbContext;
         Busket Busket;
-        Autopart Autopart;
         User User;
+        int totalCost;
         public UserOrderInfoWindow(Busket busket)
         {
             InitializeComponent();
             DbContext = UsersOrdersManagmentWindow.DbContext;
             Busket = busket;
 
-            Autopart = DbContext.Autopart.Where(a =>
-            a.IdAutoPart == Busket.IdAutoPart).FirstOrDefault();
+            //Autopart = DbContext.Autopart.Where(a =>
+            //a.IdAutoPart == Busket.IdAutoPart).FirstOrDefault();
 
             User = DbContext.User.Where(a =>
             a.IdUser == Busket.IdUser).FirstOrDefault();
 
-            LoadLabels();
-            LoadImage();
+            SNPLabel.Content = $"Заказ покупателя {User.Name} {User.Surname} {User.Patronomyc}";
+
+            UpdateListView();
         }
 
-        private void LoadLabels()
+        private void UpdateListView()
         {
-            AutoPartNameLabel.Content = $"Наименование запчасти: {Autopart.AutoPartName}";
-            SNPLabel.Content = $"Покупатель: {User.Name} {User.Surname} {User.Patronomyc}";
-            StatusLabel.Content = $"Статус заказа: {Busket.OrderStatus}";
-            CostLabel.Content = $"Цена заказа: {Autopart.Cost}";
-        }
+            UserBusketListView.Items.Clear();
+            List<Busketautopart> displayBusketautoparts = new List<Busketautopart>();
+            displayBusketautoparts = DbContext.Busketautopart.ToList();
 
-        private void LoadImage()
-        {
-            if (Autopart.AutoPartImage != null && Autopart.AutoPartImage.Length > 0)
+            foreach (Busketautopart bskautopart in displayBusketautoparts)
             {
-                Uri resUri = new Uri(Environment.CurrentDirectory + Autopart.AutoPartImage);
-                ImageAutoPartImageBox.Source = new BitmapImage(resUri);
+                if (Busket.IdBusket == bskautopart.IdBusket)
+                {
+                    Autopart costAutopart = DbContext.Autopart.Where(a => a.IdAutoPart == bskautopart.IdAutopart).FirstOrDefault();
+                    totalCost += costAutopart.Cost;
+                    UserBusketListView.Items.Add(new ManagersBusketAutopartsUserControl(bskautopart)
+                    {
+                        Width = GetOptimizedWidth()
+                    });
+                }
+            }
+            TotalCostLabel.Content = $"Прибыль {totalCost} ₽";
+        }
+
+        private double GetOptimizedWidth()
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                return (RenderSize.Width - 55) / 1.5;
             }
             else
             {
-                ImageAutoPartImageBox.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+                return (Width - 55) / 1.5;
             }
         }
 
@@ -70,7 +84,19 @@ namespace AutoPartsStore.Windows.ManagerWindows
                 Busket.OrderStatus = "Готов";
                 StatusLabel.Content = "Готов";
                 ConfirmOrderButton.IsEnabled = false;
+
+                Order order = new Order();
+                order.IdBusket = Busket.IdBusket;
+                order.TotalCost = totalCost;
+                order.DateOrder = DateTime.Now;
+
+                UserBusketListView.Items.Clear();
+
+                DbContext.Order.Add(order);
                 DbContext.SaveChanges();
+
+                MessageBox.Show("Заказ успешно подтвержден", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

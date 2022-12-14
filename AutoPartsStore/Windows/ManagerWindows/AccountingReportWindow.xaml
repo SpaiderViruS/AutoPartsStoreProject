@@ -1,0 +1,36 @@
+﻿<Window x:Class="AutoPartsStore.Windows.ManagerWindows.AccountingReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoPartsStore.Windows.ManagerWindows"
+        mc:Ignorable="d"
+        Title="AccountingReportWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Период от"/>
+                <DatePicker x:Name="StartDatePicker" SelectedDateChanged="StartDatePicker_SelectedDateChanged"/>
+                <Label Content="По"/>
+                <DatePicker x:Name="EndDatePicker" SelectedDateChanged="EndDatePicker_SelectedDateChanged"/>
+            </StackPanel>
+        </Grid>
+
+        <ListView Grid.Row="1" x:Name="OrdersListView"/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BackButton" Content="Назад"/>
+            <Button x:Name="StartAccounting" Grid.Column="1" Content="Сформировать отчёт" Click="StartAccounting_Click"/>
+        </Grid>
+    </Grid>
+</Window>

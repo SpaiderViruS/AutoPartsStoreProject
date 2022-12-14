@@ -25,6 +25,7 @@ namespace AutoPartsStore.Models
 
         public virtual DbSet<Autopart> Autopart { get; set; }
         public virtual DbSet<Busket> Busket { get; set; }
+        public virtual DbSet<Busketautopart> Busketautopart { get; set; }
         public virtual DbSet<Characteristik> Characteristik { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Manufracturer> Manufracturer { get; set; }
@@ -39,7 +40,7 @@ namespace AutoPartsStore.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;user=root;database=db_autopartsstore;password=a678e321r", x => x.ServerVersion("8.0.30-mysql"));
+                optionsBuilder.UseMySql("server=localhost;user=root;database=db_autopartsstore;password=a678e321r", x => x.ServerVersion("8.0.30-mysql")).UseLazyLoadingProxies();
             }
         }
 
@@ -74,6 +75,11 @@ namespace AutoPartsStore.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
+                entity.Property(e => e.Description)
+                    .HasColumnType("varchar(250)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
                 entity.Property(e => e.IdCharacteristik).HasColumnName("idCharacteristik");
 
                 entity.Property(e => e.IdManufracturer).HasColumnName("idManufracturer");
@@ -103,15 +109,10 @@ namespace AutoPartsStore.Models
 
                 entity.ToTable("busket");
 
-                entity.HasIndex(e => e.IdAutoPart)
-                    .HasName("FK_Busket_Autopart_idx");
-
                 entity.HasIndex(e => e.IdUser)
                     .HasName("FK_Busket_User_idx");
 
                 entity.Property(e => e.IdBusket).HasColumnName("idBusket");
-
-                entity.Property(e => e.IdAutoPart).HasColumnName("idAutoPart");
 
                 entity.Property(e => e.IdUser).HasColumnName("idUser");
 
@@ -122,15 +123,45 @@ namespace AutoPartsStore.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
-                entity.HasOne(d => d.IdAutoPartNavigation)
-                    .WithMany(p => p.Busket)
-                    .HasForeignKey(d => d.IdAutoPart)
-                    .HasConstraintName("FK_Busket_Autopart");
-
                 entity.HasOne(d => d.IdUserNavigation)
                     .WithMany(p => p.Busket)
                     .HasForeignKey(d => d.IdUser)
                     .HasConstraintName("FK_Busket_User");
+            });
+
+            modelBuilder.Entity<Busketautopart>(entity =>
+            {
+                entity.HasKey(e => new { e.IdBusketAutopart, e.IdBusket, e.IdAutopart })
+                    .HasName("PRIMARY")
+                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
+
+                entity.ToTable("busketautopart");
+
+                entity.HasIndex(e => e.IdAutopart)
+                    .HasName("FK_Busketautopart_Autopart_idx");
+
+                entity.HasIndex(e => e.IdBusket)
+                    .HasName("FK_Busketautopart_Busket_idx");
+
+                entity.Property(e => e.IdBusketAutopart)
+                    .HasColumnName("idBusketAutopart")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.IdBusket).HasColumnName("idBusket");
+
+                entity.Property(e => e.IdAutopart).HasColumnName("idAutopart");
+
+                entity.HasOne(d => d.IdAutopartNavigation)
+                    .WithMany(p => p.Busketautopart)
+                    .HasForeignKey(d => d.IdAutopart)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Busketautopart_Autopart");
+
+                entity.HasOne(d => d.IdBusketNavigation)
+                    .WithMany(p => p.Busketautopart)
+                    .HasForeignKey(d => d.IdBusket)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Busketautopart_Busket");
             });
 
             modelBuilder.Entity<Characteristik>(entity =>

@@ -39,10 +39,12 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button x:Name="GoToOrdersButton" Content="Заказы пользователей" Margin="5" Click="GoToOrdersButton_Click" Visibility="Collapsed"/>
             <Button x:Name="GoToUserProfileButton" Content="Профиль" Margin="5" Grid.Column="1" Visibility="Collapsed" Click="GoToUserProfileButton_Click"/>
             <Button x:Name="AddNewAutoPartButton" Content="Добавить автозапчасть" Grid.Column="2" Visibility="Collapsed" Click="AddNewAutoPartButton_Click"/>
+            <Button x:Name="AccountingButton" Content="Сформировать отчёт за период" Grid.Column="3" Visibility="Collapsed" Click="AccountingButton_Click"/>
         </Grid>
 
 

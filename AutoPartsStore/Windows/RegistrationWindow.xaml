@@ -1,0 +1,51 @@
+﻿<Window x:Class="AutoPartsStore.Windows.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoPartsStore.Windows"
+        mc:Ignorable="d"
+        Title="RegistrationWindow" Height="310" Width="450"
+        MinHeight="295" MinWidth="425" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="RegistrationLabel" Content="Регистрация" Grid.Column="1" FontSize="24" HorizontalAlignment="Center"/>
+
+        <Label Grid.Row="1" Content="Имя*" />
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameTextBox" />
+
+        <Label Grid.Row="2" Content="Фамилия" />
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="SurnameTextBox" />
+
+        <Label Grid.Row="3" Content="Отчество" />
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="PatronomycTextBox" />
+
+        <Label Grid.Row="4" Content="Логин*" />
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="LoginTextBox" />
+
+        <Label Grid.Row="5" Content="Пароль*" />
+        <PasswordBox Grid.Row="5" Grid.Column="1" x:Name="PasswordPasswodBox" />
+
+        <Grid Grid.Row="6" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="TryRegistration" Content="Зарегистрироваться" Click="TryRegistration_Click"/>
+            <Label Content="* - Обязательные поля" Grid.Row="1"/>
+        </Grid>
+    </Grid>
+</Window>

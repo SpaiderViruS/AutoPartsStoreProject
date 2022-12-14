@@ -1,0 +1,37 @@
+﻿<Window x:Class="AutoPartsStore.Windows.UserWindows.UserAddReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoPartsStore.Windows.UserWindows"
+        mc:Ignorable="d"
+        Title="UserAddReviewWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="OneStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="OneStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="TwoStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="TwoStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="ThreeStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="ThreeStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="FourStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="FourStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="FiveStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="FiveStarImage_MouseLeftButtonDown"/>
+            </StackPanel>
+        </Grid>
+
+        <RichTextBox Grid.Row="1" x:Name="ReviewRichBox"/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Отмена" x:Name="BackButton" Click="BackButton_Click"/>
+            <Button Grid.Column="1" Content="Оставить отзыв" x:Name="AddReviewButton" Click="AddReviewButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>

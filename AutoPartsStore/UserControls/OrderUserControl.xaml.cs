@@ -22,14 +22,23 @@ namespace AutoPartsStore.UserControls
     /// </summary>
     public partial class OrderUserControl : UserControl
     {
-        public Busket Busket { get; set; }
+        public Order Order { get; set; }
+        public Busketautopart Busketautopart { get; set; }
+        Busket Busket { get; set; }
         Autopart Autopart;
-        public OrderUserControl(Busket busket)
+        public OrderUserControl(Order order)
         {
             InitializeComponent();
-            Busket = busket;
+            Order = order;
+
+            Busket = db_autopartsstoreContext.DbContext.Busket.Where(b =>
+            b.IdBusket == Order.IdBusket).FirstOrDefault();
+
+            Busketautopart = db_autopartsstoreContext.DbContext.Busketautopart.Where(b =>
+            b.IdBusket == Busket.IdBusket).FirstOrDefault();
+
             Autopart = db_autopartsstoreContext.DbContext.Autopart.Where(a =>
-            a.IdAutoPart == Busket.IdAutoPart).FirstOrDefault();
+            a.IdAutoPart == Busketautopart.IdAutopart).FirstOrDefault();
 
             // нужна ли пользователю выводить аву
 
@@ -41,9 +50,6 @@ namespace AutoPartsStore.UserControls
         {
             User user = db_autopartsstoreContext.DbContext.User.Where(u =>
             u.IdUser == Busket.IdUser).FirstOrDefault();
-
-            //Status status = db_autopartsstoreContext.DbContext.Status.Where(s =>
-            //s.IdStatus == autopart.IdStatusAutoPart).FirstOrDefault();
 
             OrderAutoPartNameLabel.Content = $"Наименоввание запчасти: {Autopart.AutoPartName}";
             OrderStatusLabel.Content = $"Статус заказа: {Busket.OrderStatus}";

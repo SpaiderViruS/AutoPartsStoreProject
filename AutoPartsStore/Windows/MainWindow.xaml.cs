@@ -41,9 +41,10 @@ namespace AutoPartsStore
                 {
                     GoToOrdersButton.Visibility = Visibility.Visible;
                     AddNewAutoPartButton.Visibility = Visibility.Visible;
-                    GoToUserProfileButton.Content = "Список покупателей";
-                }
+                    AccountingButton.Visibility = Visibility.Visible;
 
+                    GoToUserProfileButton.Visibility = Visibility.Collapsed;
+                }
             }
 
             // Тут сделать проверку на уровень доступа пользователя (Возможно не надо, роль можно смотреть при переходах в формы)
@@ -55,9 +56,9 @@ namespace AutoPartsStore
         private void LoadListViews()
         {
             FilterListView.Items.Add("Все");
-            FilterListView.Items.Add("Все");
-            FilterListView.Items.Add("Все");
-            FilterListView.Items.Add("Все");
+            FilterListView.Items.Add("АвтоВАЗ");
+            FilterListView.Items.Add("Toyota");
+            FilterListView.Items.Add("Mitsubisi");
 
             SortingListView.Items.Add("Все");
             SortingListView.Items.Add("Наименование ↑");
@@ -81,6 +82,7 @@ namespace AutoPartsStore
                 a.AutoPartName.ToLower().Contains(SearchTextBox.Text.ToLower())).ToList();
             }
 
+            // Сортировка
             if (SortingListView.SelectedIndex != 1)
             {
                 if (SortingListView.SelectedIndex == 1)
@@ -104,6 +106,24 @@ namespace AutoPartsStore
                     a.Cost).ToList();
                 }
             }
+            if (FilterListView.SelectedIndex != 1)
+            {
+                if (FilterListView.SelectedIndex == 1)
+                {
+                    autopart = autopart.Where(a => a.IdManufracturerNavigation.ManufracturerName 
+                    == "АвтоВАЗ").ToList();
+                }
+                else if (FilterListView.SelectedIndex == 2)
+                {
+                    autopart = autopart.Where(a => a.IdManufracturerNavigation.ManufracturerName
+                    == "Toyota").ToList();
+                }
+                else if (FilterListView.SelectedIndex == 3)
+                {
+                    autopart = autopart.Where(a => a.IdManufracturerNavigation.ManufracturerName
+                    == "Mitsubisi").ToList();
+                }
+            }
             
             foreach (Autopart ap in autopart)
             {
@@ -118,11 +138,11 @@ namespace AutoPartsStore
         {
             if (WindowState == WindowState.Maximized)
             {
-                return (RenderSize.Width - 55) / 1.5;
+                return (RenderSize.Width - 55) / 1.25;
             }
             else
             {
-                return (Width - 55) / 1.5;
+                return (Width - 55) / 1.25;
             }
         }
 
@@ -187,6 +207,12 @@ namespace AutoPartsStore
             EditInsertAutoPartWindow editInsertAutoPart = new EditInsertAutoPartWindow(null);
             editInsertAutoPart.ShowDialog();
             RefreshWindow();
+        }
+
+        private void AccountingButton_Click(object sender, RoutedEventArgs e)
+        {
+            AccountingReportWindow accountingReportWindow = new AccountingReportWindow();
+            accountingReportWindow.ShowDialog();
         }
     }
 }

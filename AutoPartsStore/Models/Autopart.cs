@@ -11,13 +11,14 @@ namespace AutoPartsStore.Models
     {
         public Autopart()
         {
-            Busket = new HashSet<Busket>();
+            Busketautopart = new HashSet<Busketautopart>();
             Review = new HashSet<Review>();
         }
 
         public int IdAutoPart { get; set; }
         public string AutoPartName { get; set; }
         public int Cost { get; set; }
+        public string Description { get; set; }
         public string AutoPartImage { get; set; }
         public int IdManufracturer { get; set; }
         public int IdCharacteristik { get; set; }
@@ -26,7 +27,7 @@ namespace AutoPartsStore.Models
         public virtual Characteristik IdCharacteristikNavigation { get; set; }
         public virtual Manufracturer IdManufracturerNavigation { get; set; }
         public virtual Status IdStatusAutoPartNavigation { get; set; }
-        public virtual ICollection<Busket> Busket { get; set; }
+        public virtual ICollection<Busketautopart> Busketautopart { get; set; }
         public virtual ICollection<Review> Review { get; set; }
     }
 }

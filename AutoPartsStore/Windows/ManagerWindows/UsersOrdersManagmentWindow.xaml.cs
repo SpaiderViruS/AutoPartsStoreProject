@@ -38,25 +38,25 @@ namespace AutoPartsStore.Windows.ManagerWindows
 
         private void UpdateListView()
         {
+            OrdersListView.Items.Clear();
             List<Busket> displayBusket = new List<Busket>();
             displayBusket = DbContext.Busket.ToList();
 
+            
+
             if (!string.IsNullOrEmpty(SearchTextBox.Text))
             {
-                //displayBusket = displayBusket.Where(d =>
-                //d.IdAutoPartNavigation.AutoPartName.ToLower().Contains(SearchTextBox.Text.ToLower())
-                //|| d.IdUserNavigation.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
-                //|| d.IdUserNavigation.Surname.ToLower().Contains(SearchTextBox.Text.ToLower())
-                //|| d.IdUserNavigation.Patronomyc.ToLower().Contains(SearchTextBox.Text.ToLower())).ToList();
+                displayBusket = displayBusket.Where(d =>
+                d.IdUserNavigation.Name.ToLower().Contains(SearchTextBox.Text.ToLower())
+                || d.IdUserNavigation.Surname.ToLower().Contains(SearchTextBox.Text.ToLower())
+                || d.IdUserNavigation.Patronomyc.ToLower().Contains(SearchTextBox.Text.ToLower())).ToList();
             }
-
-            OrdersListView.Items.Clear();
 
             foreach (Busket busket in displayBusket)
             {
                 if (busket.OrderStatus == "Комплектуется")
                 {
-                    OrdersListView.Items.Add(new OrderUserControl(busket)
+                    OrdersListView.Items.Add(new ManagersOrdersUserControl(busket)
                     {
                         Width = GetOptimizedWidth()
                     });
@@ -80,7 +80,7 @@ namespace AutoPartsStore.Windows.ManagerWindows
         {
             if (OrdersListView.SelectedItem != null)
             {
-                Busket Busket = ((OrderUserControl)OrdersListView.SelectedItem).Busket;
+                Busket Busket = ((ManagersOrdersUserControl)OrdersListView.SelectedItem).Busket;
 
                 UserOrderInfoWindow userOrderInfoWindow = new UserOrderInfoWindow(Busket);
                 userOrderInfoWindow.ShowDialog();

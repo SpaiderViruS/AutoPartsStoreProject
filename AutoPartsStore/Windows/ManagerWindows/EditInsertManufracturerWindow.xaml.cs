@@ -58,7 +58,7 @@ namespace AutoPartsStore.Windows.ManagerWindows
                 Country country = DbContext.Country.Where(c =>
                 c.IdCountry == mfr.IdCountry).FirstOrDefault();
                 ManufracturerListView.Items.Add($"{mfr.IdManufracturer}: {mfr.ManufracturerName}" +
-                    $"\nСтрана производства{country.CountryName}");
+                    $"\nСтрана производства {country.CountryName}");
             }
         }
 
@@ -118,6 +118,7 @@ namespace AutoPartsStore.Windows.ManagerWindows
 
                 MessageBox.Show("Производитель успешно изменён", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+                DbContext.SaveChanges();
                 LoadListView();
             }
             else

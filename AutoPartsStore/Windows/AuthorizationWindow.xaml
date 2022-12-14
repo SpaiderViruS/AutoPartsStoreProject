@@ -17,6 +17,7 @@
 
             <Button x:Name="EnterButton" Content="Войти" Click="EnterButton_Click"/>
             <Button x:Name="EnterAsGuest" Content="Войти как гость" Click="EnterAsGuest_Click"/>
+            <Button x:Name="RegistrationButton" Content="Регистрация" Click="RegistrationButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

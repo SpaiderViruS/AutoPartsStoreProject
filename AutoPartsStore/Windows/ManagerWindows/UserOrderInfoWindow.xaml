@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:AutoPartsStore.Windows.ManagerWindows"
         mc:Ignorable="d"
         Title="UserOrderInfoWindow" Height="310" Width="800"
-        MinHeight="300" MinWidth="775">
+        MinHeight="500" MinWidth="775">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -22,7 +23,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="ImageAutoPartImageBox" Width="200" Height="200" Margin="15"/>
+            <Label x:Name="SNPUserLabel"/>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Label x:Name="AutoPartNameLabel" FontSize="14"/>
@@ -34,13 +35,16 @@
 
         </Grid>
 
-        <Grid Grid.Row="2">
+        <ListView x:Name="UserBusketListView" Grid.Row="2"/>
+
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button x:Name="BackButton" Content="Назад"></Button>
+            <Label x:Name="TotalCostLabel" Grid.Column="1"/>
             <Button x:Name="ConfirmOrderButton" Grid.Column="2" Content="Подтвердить заказ" Click="ConfirmOrderButton_Click"></Button>
         </Grid>
     </Grid>

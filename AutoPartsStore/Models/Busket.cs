@@ -11,16 +11,16 @@ namespace AutoPartsStore.Models
     {
         public Busket()
         {
+            Busketautopart = new HashSet<Busketautopart>();
             Order = new HashSet<Order>();
         }
 
         public int IdBusket { get; set; }
-        public int IdAutoPart { get; set; }
         public int IdUser { get; set; }
         public string OrderStatus { get; set; }
 
-        public virtual Autopart IdAutoPartNavigation { get; set; }
         public virtual User IdUserNavigation { get; set; }
+        public virtual ICollection<Busketautopart> Busketautopart { get; set; }
         public virtual ICollection<Order> Order { get; set; }
     }
 }

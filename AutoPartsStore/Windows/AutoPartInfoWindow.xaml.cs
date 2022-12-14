@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using AutoPartsStore.Models;
 using AutoPartsStore.UserControls;
 using AutoPartsStore.Windows.ManagerWindows;
+using AutoPartsStore.Windows.UserWindows;
 
 namespace AutoPartsStore.Windows
 {
@@ -38,6 +39,7 @@ namespace AutoPartsStore.Windows
                 if (user.IdRole == 4)
                 {
                     EditButton.Visibility = Visibility.Visible;
+                    ToBusketButton.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -45,6 +47,39 @@ namespace AutoPartsStore.Windows
             LoadLabels();
             LoadReviews();
             LoadImage();
+            if (currentUser != null)
+            {
+                CheckReviewAndBusket();
+            }
+        }
+
+        private void CheckReviewAndBusket()
+        {
+            List<Busketautopart> busketautoparts = new List<Busketautopart>();
+            busketautoparts = DbContext.Busketautopart.ToList();
+
+            Busket tempBusket = DbContext.Busket.Where(b =>
+            b.IdUser == currentUser.IdUser).FirstOrDefault();
+
+            if (tempBusket != null)
+            {
+                foreach (Busketautopart b in busketautoparts)
+                {
+                    if (tempBusket.IdBusket == b.IdBusket)
+                    {
+                        if (b.IdAutopart == Autopart.IdAutoPart)
+                        {
+                            WriteReviewButton.Visibility = Visibility.Visible;
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+            
         }
 
         private void LoadLabels()
@@ -105,12 +140,33 @@ namespace AutoPartsStore.Windows
             u.IdStatus == Autopart.IdStatusAutoPart).FirstOrDefault();
                 if (status.StatusName != "Нет в наличии")
                 {
-                    Busket toBusket = new Busket();
-                    toBusket.IdAutoPart = Autopart.IdAutoPart;
-                    toBusket.IdUser = currentUser.IdUser;
+                    //Busket toBusket = new Busket();
+                    //toBusket.IdAutoPart = Autopart.IdAutoPart;
+                    //toBusket.IdUser = currentUser.IdUser;
+                    //toBusket.OrderStatus = "Формируется";
+
+                    //DbContext.Busket.Add(toBusket);
+                    //DbContext.SaveChanges();
+
+                    Busket toBusket = DbContext.Busket.Where(b =>
+                    b.IdUser == currentUser.IdUser).FirstOrDefault();
+
+                    if (toBusket == null)
+                    {
+                        toBusket = new Busket();
+                        toBusket.IdUser = currentUser.IdUser;
+                        toBusket.OrderStatus = "";
+                        DbContext.Busket.Add(toBusket);
+                        DbContext.SaveChanges();
+                    }
+
+                    Busketautopart busketautopart = new Busketautopart();
+                    busketautopart.IdAutopart = Autopart.IdAutoPart;
+                    busketautopart.IdBusket = toBusket.IdBusket;
+
                     toBusket.OrderStatus = "Формируется";
 
-                    DbContext.Busket.Add(toBusket);
+                    DbContext.Busketautopart.Add(busketautopart);
                     DbContext.SaveChanges();
 
                     MessageBox.Show($"Товар {Autopart.AutoPartName} успешно добавлен в корзину", "Уведомление",
@@ -133,6 +189,12 @@ namespace AutoPartsStore.Windows
         {
             EditInsertAutoPartWindow editInsertAutoPart = new EditInsertAutoPartWindow(Autopart);
             editInsertAutoPart.ShowDialog();
+        }
+
+        private void WriteReviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserAddReviewWindow userAddReviewWindow = new UserAddReviewWindow(currentUser, Autopart);
+            userAddReviewWindow.ShowDialog();
         }
     }
 }

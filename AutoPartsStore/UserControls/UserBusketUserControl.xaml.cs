@@ -21,23 +21,26 @@ namespace AutoPartsStore.UserControls
     /// </summary>
     public partial class UserBusketUserControl : UserControl
     {
+        public Busketautopart Busketautopart { get; set; }
         Busket Busket { get; set; }
         Autopart Autopart;
-        public UserBusketUserControl(Busket busket)
+        public UserBusketUserControl(Busketautopart busketautopart)
         {
             InitializeComponent();
-            Busket = busket;
+            Busketautopart = busketautopart;
+
+            Busket = db_autopartsstoreContext.DbContext.Busket.Where(b =>
+            b.IdBusket == Busketautopart.IdBusket).FirstOrDefault();
+
             Autopart = db_autopartsstoreContext.DbContext.Autopart.Where(p =>
-            p.IdAutoPart == Busket.IdAutoPart).FirstOrDefault();
+            p.IdAutoPart == Busketautopart.IdAutopart).FirstOrDefault();
 
             LoadLabels();
             LoadImage();
         }
 
         private void LoadLabels()
-        {
-            
-
+        {           
             AutoPartNameLabel.Content = $"Наименование: {Autopart.AutoPartName}";
             StatusLabel.Content = $"Статус: {Busket.OrderStatus}";
         }

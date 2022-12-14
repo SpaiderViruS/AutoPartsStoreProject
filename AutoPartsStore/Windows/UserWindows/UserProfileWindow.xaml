@@ -45,11 +45,13 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Button x:Name="BackButton" Content="Назад"></Button>
-            <Button x:Name="ToBusketButton" Grid.Column="1" Content="Корзина" Click="ToBusketButton_Click"></Button>
-            <Button x:Name="ToOrders" Grid.Column="2" Content="Мои заказы" Click="ToOrders_Click"></Button>
+            <Button x:Name="EditUser" Content="Редактировать информацию" Grid.Column="1" Click="EditUser_Click"></Button>
+            <Button x:Name="ToBusketButton" Grid.Column="2" Content="Корзина" Click="ToBusketButton_Click"></Button>
+            <Button x:Name="ToOrders" Grid.Column="3" Content="Мои заказы" Click="ToOrders_Click"></Button>
         </Grid>
 
     </Grid>

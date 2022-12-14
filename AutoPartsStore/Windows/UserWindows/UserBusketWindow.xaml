@@ -19,8 +19,8 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Поиск" FontSize="18" />
-            <TextBox x:Name="SearchTextBox" Grid.Column="1" TextChanged="SearchTextBox_TextChanged"/>
+            <Label Content="Корзина" FontSize="18" />
+            <!--<TextBox x:Name="SearchTextBox" Grid.Column="1" TextChanged="SearchTextBox_TextChanged"/>-->
         </Grid>
 
         <Label x:Name="NoOrdersLabel" Content="Заказы отсутсвуют" Grid.Row="1" FontSize="32" Visibility="Collapsed"

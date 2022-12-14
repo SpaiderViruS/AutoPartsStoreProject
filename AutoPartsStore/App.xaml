@@ -31,5 +31,15 @@
         <Style TargetType="ListView">
             <Setter Property="FontFamily" Value="Franklin Gothic Medium"/>
         </Style>
+
+        <Style TargetType="RichTextBox">
+            <Setter Property="FontFamily" Value="Franklin Gothic Medium"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="Franklin Gothic Medium"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
     </Application.Resources>
 </Application>

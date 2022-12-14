@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AutoPartsStore.Models;
 
 namespace AutoPartsStore.Windows.ManagerWindows
 {
@@ -19,39 +20,145 @@ namespace AutoPartsStore.Windows.ManagerWindows
     /// </summary>
     public partial class EditInsertCharacteristik : Window
     {
+        db_autopartsstoreContext DbContext;
         public EditInsertCharacteristik()
         {
             InitializeComponent();
+            DbContext = MainWindow.context;
+
+            DeleteCharacteristik.IsEnabled = false;
+            EditCharacteristik.IsEnabled = false;
+
+            LoadComboBox();
+            LoadListView();
+        }
+
+        private void LoadComboBox()
+        {
+            List<Manufracturer> displayManufracturer = new List<Manufracturer>();
+            displayManufracturer = DbContext.Manufracturer.ToList();
+
+            foreach (Manufracturer manufracturer in displayManufracturer)
+            {
+                ManufracturerComboBox.Items.Add(manufracturer.ManufracturerName);
+            }
+            ManufracturerComboBox.SelectedIndex = 0;
+        }
+
+        private void LoadListView()
+        {
+            List<Characteristik> displayCharacteristik = new List<Characteristik>();
+            displayCharacteristik = DbContext.Characteristik.ToList();
+
+            CharacteristikListView.Items.Clear();
+
+            foreach (Characteristik characteristik in displayCharacteristik)
+            {
+                Manufracturer manufracturer = DbContext.Manufracturer.Where(c =>
+                c.IdManufracturer == characteristik.Idmanufracturer).FirstOrDefault();
+
+                CharacteristikListView.Items.Add($"{characteristik.IdCharacteristik}: {characteristik.Description}" +
+                    $"\nПроизводитель {manufracturer.ManufracturerName}");
+            }
         }
 
         private void CharacteristikListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (CharacteristikListView.SelectedItem != null)
+            {
+                string[] temp = CharacteristikListView.SelectedItem.ToString().Split(':');
 
-        }
+                Characteristik characteristik = DbContext.Characteristik.Where(m =>
+                m.IdCharacteristik == Convert.ToInt32(temp[0])).FirstOrDefault();
 
-        private void AddManufracturer_Click(object sender, RoutedEventArgs e)
-        {
+                CharacteristikNameTextBox.Text = characteristik.Description;
+                ManufracturerComboBox.SelectedIndex = characteristik.Idmanufracturer - 1;
 
-        }
+                DeleteCharacteristik.IsEnabled = true;
+                EditCharacteristik.IsEnabled = true;
 
-        private void EditManufracturer_Click(object sender, RoutedEventArgs e)
-        {
-
+            }
         }
 
         private void AddCharacteristik_Click(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
+                ManufracturerComboBox.SelectedIndex != -1)
+            {
+                Characteristik newcharacteristik = new Characteristik();
+                newcharacteristik.Description = CharacteristikNameTextBox.Text;
+                newcharacteristik.Idmanufracturer = ManufracturerComboBox.SelectedIndex + 1;
 
+                DbContext.Characteristik.Add(newcharacteristik);
+                DbContext.SaveChanges();
+
+                MessageBox.Show("Характеристика успешно добавлена", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadListView();
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, заполните поля", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void EditCharacteristik_Click(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
+                ManufracturerComboBox.SelectedIndex != -1)
+            {
+                string[] temp = CharacteristikListView.SelectedItem.ToString().Split(':');
 
+                Characteristik selectedCharacteristik = DbContext.Characteristik.Where(m =>
+                m.IdCharacteristik == Convert.ToInt32(temp[0])).FirstOrDefault();
+
+                selectedCharacteristik.Description = CharacteristikNameTextBox.Text;
+                selectedCharacteristik.Idmanufracturer = ManufracturerComboBox.SelectedIndex + 1;
+
+                MessageBox.Show("Характеристика успешно изменена", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadListView();
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, заполните поля", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void DeleteCharacteristik_Click(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
+                ManufracturerComboBox.SelectedIndex != -1)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите удалить выбранную характеристику?" +
+                    "\nВнимание, если вы удалите характеристику, все товары связанные с ним так же будут удалены",
+                    "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                    == MessageBoxResult.Yes)
+                {
+                    string[] temp = CharacteristikListView.SelectedItem.ToString().Split(':');
 
+                    Characteristik selectedCharacteristik = DbContext.Characteristik.Where(m =>
+                    m.IdCharacteristik == Convert.ToInt32(temp[0])).FirstOrDefault();
+
+                    DbContext.Characteristik.Remove(selectedCharacteristik);
+                    DbContext.SaveChanges();
+
+                    MessageBox.Show("Производитель успешно удалён", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadListView();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, заполните поля", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

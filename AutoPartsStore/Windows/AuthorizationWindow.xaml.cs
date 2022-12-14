@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AutoPartsStore.Models;
+using AutoPartsStore.Windows.AdministratorWindow;
 
 namespace AutoPartsStore.Windows
 {
@@ -20,7 +21,7 @@ namespace AutoPartsStore.Windows
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
-        db_autopartsstoreContext DbContext;
+        public static db_autopartsstoreContext DbContext;
         public AuthorizationWindow()
         {
             InitializeComponent();
@@ -37,9 +38,18 @@ namespace AutoPartsStore.Windows
 
                 if (user != null)
                 {
-                    MainWindow mainWindow = new MainWindow(user);
-                    mainWindow.Show();
-                    Close();
+                    if (user.IdRole != 2)
+                    {
+                        MainWindow mainWindow = new MainWindow(user);
+                        mainWindow.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        AdministrationWindow administratorWindow = new AdministrationWindow(user);
+                        administratorWindow.Show();
+                        Close();
+                    }
                 }
                 else
                 {
@@ -59,6 +69,12 @@ namespace AutoPartsStore.Windows
             MainWindow mainWindow = new MainWindow(null);
             mainWindow.Show();
             Close();
+        }
+
+        private void RegistrationButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow registrationWindow = new RegistrationWindow(null);
+            registrationWindow.ShowDialog();
         }
     }
 }

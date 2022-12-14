@@ -254,7 +254,12 @@ namespace AutoPartsStore.Windows.ManagerWindows
 
         private void AddEditInsertCharacteristikButton_Click(object sender, RoutedEventArgs e)
         {
-#warning Нету характеристики
+            EditInsertCharacteristik eick = new EditInsertCharacteristik();
+
+            savingIndex = $"{ManufracturerComboBox.SelectedIndex};{CharacteristikComboBox.SelectedIndex};{StatusComboBox.SelectedIndex}";
+
+            eick.ShowDialog();
+            LoadComboBoxes();
         }
     }
 }

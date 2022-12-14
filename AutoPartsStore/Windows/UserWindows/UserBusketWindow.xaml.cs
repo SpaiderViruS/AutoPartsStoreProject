@@ -36,8 +36,8 @@ namespace AutoPartsStore.Windows.UserWindows
 
         private void LoadBusket()
         {
-            List<Busket> displayBusket = new List<Busket>();
-            displayBusket = DbContext.Busket.ToList();
+            List<Busketautopart> displayBusket = new List<Busketautopart>();
+            displayBusket = DbContext.Busketautopart.ToList();
 
             //if (!string.IsNullOrEmpty(SearchTextBox.Text.ToLower()))
             //{
@@ -48,18 +48,25 @@ namespace AutoPartsStore.Windows.UserWindows
             //    a..ToLower().Contains(SearchTextBox.Text.ToLower())).ToList();
             //}
 
+            Busket busket = DbContext.Busket.Where(b =>
+            b.IdUser == User.IdUser).FirstOrDefault();
+
             BusketListView.Items.Clear();
-            foreach (Busket bsk in displayBusket)
+
+            if (busket != null)
             {
-                if (bsk.IdUser == User.IdUser)
+                foreach (Busketautopart bsk in displayBusket)
                 {
-                    if (bsk.OrderStatus.Contains("Формируется"))
+                    if (bsk.IdBusket == busket.IdBusket)
                     {
-                        Busket.Add(bsk);
-                        BusketListView.Items.Add(new UserBusketUserControl(bsk)
+                        if (busket.OrderStatus.Contains("Формируется"))
                         {
-                            Width = GetOptimizedWidth()
-                        });
+                            //Busket.Add(bsk);
+                            BusketListView.Items.Add(new UserBusketUserControl(bsk)
+                            {
+                                Width = GetOptimizedWidth()
+                            });
+                        }
                     }
                 }
             }
@@ -85,7 +92,7 @@ namespace AutoPartsStore.Windows.UserWindows
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            LoadBusket();
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)

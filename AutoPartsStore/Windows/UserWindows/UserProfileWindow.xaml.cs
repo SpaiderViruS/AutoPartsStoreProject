@@ -91,5 +91,12 @@ namespace AutoPartsStore.Windows.UserWindows
                 }                
             }
         }
+
+        private void EditUser_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow registrationWindow = new RegistrationWindow(User);
+            registrationWindow.ShowDialog();
+            LoadLabels();
+        }
     }
 }
