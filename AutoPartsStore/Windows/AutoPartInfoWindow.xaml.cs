@@ -117,7 +117,15 @@ namespace AutoPartsStore.Windows
 
         private void LoadImage()
         {
-
+            if (Autopart.AutoPartImage != null && Autopart.AutoPartImage.Length > 0)
+            {
+                Uri resUri = new Uri(Environment.CurrentDirectory + Autopart.AutoPartImage);
+                ImageAutoPartImageBox.Source = new BitmapImage(resUri);
+            }
+            else
+            {
+                ImageAutoPartImageBox.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+            }
         }
 
         private double GetOptimizedWidth()

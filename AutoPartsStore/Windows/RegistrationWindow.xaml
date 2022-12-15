@@ -25,13 +25,13 @@
         <Label x:Name="RegistrationLabel" Content="Регистрация" Grid.Column="1" FontSize="24" HorizontalAlignment="Center"/>
 
         <Label Grid.Row="1" Content="Имя*" />
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameTextBox" />
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameTextBox" PreviewTextInput="NameTextBox_PreviewTextInput"/>
 
         <Label Grid.Row="2" Content="Фамилия" />
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="SurnameTextBox" />
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="SurnameTextBox" PreviewTextInput="NameTextBox_PreviewTextInput"/>
 
         <Label Grid.Row="3" Content="Отчество" />
-        <TextBox Grid.Row="3" Grid.Column="1" x:Name="PatronomycTextBox" />
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="PatronomycTextBox" PreviewTextInput="NameTextBox_PreviewTextInput"/>
 
         <Label Grid.Row="4" Content="Логин*" />
         <TextBox Grid.Row="4" Grid.Column="1" x:Name="LoginTextBox" />

@@ -116,5 +116,10 @@ namespace AutoPartsStore.Windows
             //AuthorizationWindow authorizationWindow = new AuthorizationWindow();
             //authorizationWindow.Show();
         }
+
+        private void NameTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Char.IsDigit(e.Text, 0);
+        }
     }
 }

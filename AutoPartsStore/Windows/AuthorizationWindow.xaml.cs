@@ -40,12 +40,16 @@ namespace AutoPartsStore.Windows
                 {
                     if (user.IdRole != 2)
                     {
+                        MessageBox.Show($"Вы успешно авторизовались, как {user.Name} {user.Surname} {user.Patronomyc}", "Информация",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                         MainWindow mainWindow = new MainWindow(user);
                         mainWindow.Show();
                         Close();
                     }
                     else
                     {
+                        MessageBox.Show($"Вы успешно авторизовались, как {user.Name} {user.Surname} {user.Patronomyc}", "Информация",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                         AdministrationWindow administratorWindow = new AdministrationWindow(user);
                         administratorWindow.Show();
                         Close();
