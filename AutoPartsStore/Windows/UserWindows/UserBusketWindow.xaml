@@ -20,7 +20,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Корзина" FontSize="18" />
-            <!--<TextBox x:Name="SearchTextBox" Grid.Column="1" TextChanged="SearchTextBox_TextChanged"/>-->
+            <Label x:Name="TotalCostLabel" Grid.Column="1" FontSize="18" HorizontalAlignment="Right"/>
         </Grid>
 
         <Label x:Name="NoOrdersLabel" Content="Заказы отсутсвуют" Grid.Row="1" FontSize="32" Visibility="Collapsed"

@@ -24,6 +24,7 @@ namespace AutoPartsStore.Windows.UserWindows
         db_autopartsstoreContext DbContext;
         User User { get; set; }
         List<Busket> Busket;
+        int totalCost = 0;
         public UserBusketWindow(User user)
         {
             InitializeComponent();
@@ -39,15 +40,6 @@ namespace AutoPartsStore.Windows.UserWindows
             List<Busketautopart> displayBusket = new List<Busketautopart>();
             displayBusket = DbContext.Busketautopart.ToList();
 
-            //if (!string.IsNullOrEmpty(SearchTextBox.Text.ToLower()))
-            //{
-            //    Autopart tempAutoPart = DbContext.Autopart.Where(a =>
-            //    a.IdAutoPart == displayBusket.);
-
-            //    displayBusket = displayBusket.Where(a =>
-            //    a..ToLower().Contains(SearchTextBox.Text.ToLower())).ToList();
-            //}
-
             Busket busket = DbContext.Busket.Where(b =>
             b.IdUser == User.IdUser).FirstOrDefault();
 
@@ -61,7 +53,7 @@ namespace AutoPartsStore.Windows.UserWindows
                     {
                         if (busket.OrderStatus.Contains("Формируется"))
                         {
-                            //Busket.Add(bsk);
+                            totalCost += bsk.IdAutopartNavigation.Cost;
                             BusketListView.Items.Add(new UserBusketUserControl(bsk)
                             {
                                 Width = GetOptimizedWidth()
@@ -69,11 +61,13 @@ namespace AutoPartsStore.Windows.UserWindows
                         }
                     }
                 }
+                TotalCostLabel.Content = $"К оплате {totalCost} ₽";
             }
 
             if (BusketListView.Items.Count == 0)
             {
                 NoOrdersLabel.Visibility = Visibility.Visible;
+                TotalCostLabel.Visibility = Visibility.Collapsed;
                 PlaceOrder.IsEnabled = false;
             }
         }

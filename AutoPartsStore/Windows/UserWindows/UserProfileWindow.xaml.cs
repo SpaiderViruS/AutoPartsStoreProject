@@ -30,7 +30,7 @@ namespace AutoPartsStore.Windows.UserWindows
         {
             InitializeComponent();
             User = user;
-            DbContext = new db_autopartsstoreContext();
+            DbContext = MainWindow.context;
 
             LoadLabels();
             LoadImage();
