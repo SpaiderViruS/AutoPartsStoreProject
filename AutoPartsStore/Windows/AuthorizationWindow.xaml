@@ -10,10 +10,10 @@
         <Label Content="Добро пожаловать" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         <StackPanel VerticalAlignment="Center" Orientation="Vertical">
             <Label Content="Логин" />
-            <TextBox x:Name="LoginTextBox"/>
+            <TextBox x:Name="LoginTextBox" TabIndex="0"/>
 
             <Label Content="Пароль"/>
-            <PasswordBox x:Name="PasswordPasswordBox"/>
+            <PasswordBox x:Name="PasswordPasswordBox" TabIndex="1" PreviewKeyDown="PasswordPasswordBox_PreviewKeyDown"/>
 
             <Button x:Name="EnterButton" Content="Войти" Click="EnterButton_Click"/>
             <Button x:Name="EnterAsGuest" Content="Войти как гость" Click="EnterAsGuest_Click"/>

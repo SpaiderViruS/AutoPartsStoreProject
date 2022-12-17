@@ -23,7 +23,7 @@ namespace AutoPartsStore.Windows.UserWindows
         db_autopartsstoreContext DbContext;
         User User { get; set; }
         Autopart Autopart { get; set; }
-        int raiting = 0;
+        int raiting = 5;
         public UserAddReviewWindow(User user, Autopart autopart)
         {
             InitializeComponent();
@@ -66,51 +66,51 @@ namespace AutoPartsStore.Windows.UserWindows
         }
         private void OneStarImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
-            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
-            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
-            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
+            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
+            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
+            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
             raiting = 1;
         }
 
         private void TwoStarImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
-            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
-            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
+            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
+            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
             raiting = 2;
         }
 
         private void ThreeStarImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
-            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
+            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
             raiting = 3;
         }
 
         private void FourStarImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/picture.png"));
+            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NullStar.png"));
             raiting = 4;
         }
 
         private void FiveStarImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
-            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/UserPicture.png"));
+            OneStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            TwoStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            ThreeStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            FourStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
+            FiveStarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Star.png"));
             raiting = 5;
         }
 

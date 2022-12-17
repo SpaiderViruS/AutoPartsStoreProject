@@ -57,6 +57,8 @@ namespace AutoPartsStore.Windows
         {
             List<Busketautopart> busketautoparts = new List<Busketautopart>();
             busketautoparts = DbContext.Busketautopart.ToList();
+            List<Review> checkReview = new List<Review>();
+            checkReview = DbContext.Review.ToList();
 
             Busket tempBusket = DbContext.Busket.Where(b =>
             b.IdUser == currentUser.IdUser).FirstOrDefault();
@@ -72,6 +74,16 @@ namespace AutoPartsStore.Windows
                             WriteReviewButton.Visibility = Visibility.Visible;
                             return;
                         }
+                    }
+                }
+
+                Review tempReview = DbContext.Review.Where(r =>
+                r.IdUser == currentUser.IdUser).FirstOrDefault();
+                foreach (Review review in checkReview)
+                {
+                    if (tempReview.IdUser == review.IdUser)
+                    {
+                        WriteReviewButton.Content = "Редактировать отзыв";
                     }
                 }
             }
@@ -203,6 +215,7 @@ namespace AutoPartsStore.Windows
         {
             UserAddReviewWindow userAddReviewWindow = new UserAddReviewWindow(currentUser, Autopart);
             userAddReviewWindow.ShowDialog();
+            LoadReviews();
         }
     }
 }

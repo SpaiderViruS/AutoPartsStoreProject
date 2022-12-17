@@ -15,11 +15,11 @@
 
         <Grid>
             <StackPanel Orientation="Horizontal">
-                <Image x:Name="OneStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="OneStarImage_MouseLeftButtonDown"/>
-                <Image x:Name="TwoStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="TwoStarImage_MouseLeftButtonDown"/>
-                <Image x:Name="ThreeStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="ThreeStarImage_MouseLeftButtonDown"/>
-                <Image x:Name="FourStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="FourStarImage_MouseLeftButtonDown"/>
-                <Image x:Name="FiveStarImage" Source="/Images/picture.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="FiveStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="OneStarImage" Source="/Images/Star.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="OneStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="TwoStarImage" Source="/Images/Star.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="TwoStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="ThreeStarImage" Source="/Images/Star.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="ThreeStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="FourStarImage" Source="/Images/Star.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="FourStarImage_MouseLeftButtonDown"/>
+                <Image x:Name="FiveStarImage" Source="/Images/Star.png" Height="25" Width="25" Margin="5" MouseLeftButtonDown="FiveStarImage_MouseLeftButtonDown"/>
             </StackPanel>
         </Grid>
 

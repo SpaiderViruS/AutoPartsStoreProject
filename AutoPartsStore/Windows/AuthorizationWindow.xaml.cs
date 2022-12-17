@@ -80,5 +80,13 @@ namespace AutoPartsStore.Windows
             RegistrationWindow registrationWindow = new RegistrationWindow(null);
             registrationWindow.ShowDialog();
         }
+
+        private void PasswordPasswordBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                EnterButton_Click(null, new RoutedEventArgs());
+            }
+        }
     }
 }
