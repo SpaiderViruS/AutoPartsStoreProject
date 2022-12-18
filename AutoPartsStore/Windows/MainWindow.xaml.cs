@@ -37,7 +37,7 @@ namespace AutoPartsStore
             if (user != null)
             {
                 GoToUserProfileButton.Visibility = Visibility.Visible;
-                if (user.IdRole == 4)
+                if (user.IdRole == 3)
                 {
                     GoToOrdersButton.Visibility = Visibility.Visible;
                     AddNewAutoPartButton.Visibility = Visibility.Visible;

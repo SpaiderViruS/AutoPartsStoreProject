@@ -38,7 +38,7 @@ namespace AutoPartsStore.Windows
 
             if (user != null)
             {
-                if (user.IdRole == 4)
+                if (user.IdRole == 3)
                 {
                     EditButton.Visibility = Visibility.Visible;
                     ToBusketButton.Visibility = Visibility.Collapsed;
