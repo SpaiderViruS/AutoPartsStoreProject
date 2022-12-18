@@ -25,19 +25,19 @@
         <Label x:Name="RegistrationLabel" Content="Регистрация" Grid.Column="1" FontSize="24" HorizontalAlignment="Center"/>
 
         <Label Grid.Row="1" Content="Имя*" />
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameTextBox" PreviewTextInput="NameTextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameTextBox" PreviewTextInput="NameTextBox_PreviewTextInput" MaxLength="40"/>
 
         <Label Grid.Row="2" Content="Фамилия" />
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="SurnameTextBox" PreviewTextInput="NameTextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="SurnameTextBox" PreviewTextInput="NameTextBox_PreviewTextInput" MaxLength="40"/>
 
         <Label Grid.Row="3" Content="Отчество" />
-        <TextBox Grid.Row="3" Grid.Column="1" x:Name="PatronomycTextBox" PreviewTextInput="NameTextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="PatronomycTextBox" PreviewTextInput="NameTextBox_PreviewTextInput" MaxLength="40"/>
 
-        <Label Grid.Row="4" Content="Логин*" />
-        <TextBox Grid.Row="4" Grid.Column="1" x:Name="LoginTextBox" />
+        <Label Grid.Row="4" Content="Логин*" x:Name="loginlabel"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="LoginTextBox" MaxLength="40"/>
 
         <Label Grid.Row="5" Content="Пароль*" />
-        <PasswordBox Grid.Row="5" Grid.Column="1" x:Name="PasswordPasswodBox" />
+        <PasswordBox Grid.Row="5" Grid.Column="1" x:Name="PasswordPasswodBox" MaxLength="40"/>
 
         <Grid Grid.Row="6" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>

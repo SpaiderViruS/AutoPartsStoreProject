@@ -33,7 +33,8 @@ namespace AutoPartsStore.Windows
                 RegistrationLabel.Content = "Редактирование";
                 TryRegistration.Content = "Редактировать";
                 Title = "Редактирование";
-                LoginTextBox.Visibility = Visibility.Hidden;
+                LoginTextBox.Visibility = Visibility.Collapsed;
+                loginlabel.Visibility = Visibility.Collapsed;
 
                 NameTextBox.Text = User.Name;
                 SurnameTextBox.Text = User.Surname;
