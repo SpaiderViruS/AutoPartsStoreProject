@@ -97,5 +97,10 @@ namespace AutoPartsStore.Windows.ManagerWindows
         {
             UpdateListView();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -30,6 +30,7 @@
             <Label Content="Авторизация" FontSize="24" HorizontalAlignment="Center"/>
             <Label Content="Компания 'Би-би'" Grid.Row="1" HorizontalAlignment="Center"/>
         </Grid>
+        <Image Grid.Column="2" Source="/Images/LogoBiBi.jpg" Width="65" Height="65"/>
         <Label Content="Логин:" Grid.Row="1"/>
         <TextBox x:Name="LoginTextBox" Grid.Row="1" Grid.Column="1"/>
 

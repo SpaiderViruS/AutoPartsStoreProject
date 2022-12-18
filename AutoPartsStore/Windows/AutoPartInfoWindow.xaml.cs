@@ -53,6 +53,10 @@ namespace AutoPartsStore.Windows
             {
                 CheckReviewAndBusket();
             }
+            else
+            {
+                ToBusketButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void CheckReviewAndBusket()
@@ -221,6 +225,11 @@ namespace AutoPartsStore.Windows
                 userAddReviewWindow.ShowDialog();
             }
             LoadReviews();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

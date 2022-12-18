@@ -52,7 +52,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button x:Name="BackButton" Content="Назад"></Button>
+            <Button x:Name="BackButton" Content="Назад" Click="BackButton_Click"></Button>
             <Button x:Name="EditButton" Grid.Column="2" Content="Редактировать" Visibility="Collapsed" Click="EditButton_Click"></Button>
             <Button x:Name="WriteReviewButton" Grid.Column="1" Content="Оставить отзыв" Visibility="Collapsed" Click="WriteReviewButton_Click"/>
             <Button x:Name="ToBusketButton" Grid.Column="4" Content="В корзину" Click="ToBusketButton_Click"></Button>
