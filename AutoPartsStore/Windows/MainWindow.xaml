@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoPartsStore"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="900"
+        Title="Список запчастей" Height="650" Width="900"
+        MinHeight="625" MinWidth="875"
         SizeChanged="Window_SizeChanged" Closing="Window_Closing">
     <Grid>
         
@@ -33,6 +34,8 @@
         </Grid>
 
         <ListView Grid.Row="1" x:Name="AutoPathListView" SelectionMode="Single" MouseDoubleClick="AutoPathListView_MouseDoubleClick"/>
+        <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ничего не найдено" x:Name="NoItemslabel" 
+               Visibility="Collapsed" Panel.ZIndex="1" FontSize="32"/>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

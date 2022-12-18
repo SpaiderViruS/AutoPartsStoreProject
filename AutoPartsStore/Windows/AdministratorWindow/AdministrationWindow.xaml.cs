@@ -45,7 +45,7 @@ namespace AutoPartsStore.Windows.AdministratorWindow
 
             foreach (User user in displayManagers)
             {
-                if (user.IdRole == 4)
+                if (user.IdRole == 4 || user.IdRole == 2)
                 {
                     ManagersListView.Items.Add($"{user.IdUser}: {user.Name} {user.Surname} {user.Patronomyc}\n" +
                         $"Логин:{user.Login}\nПароль:{user.Password}");
@@ -182,6 +182,46 @@ namespace AutoPartsStore.Windows.AdministratorWindow
         {
             AuthorizationWindow authorizationWindow = new AuthorizationWindow();
             authorizationWindow.Show();
+        }
+
+        private void AddNewAdminisrtarion_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(NameManagerTextBox.Text) && !string.IsNullOrEmpty(SurNameManagerTextBox.Text)
+                && !string.IsNullOrEmpty(PatronomycManagerTextBox.Text) && !string.IsNullOrEmpty(LoginManagerTextBox.Text)
+                && !string.IsNullOrEmpty(PasswordManagerTextBox.Text))
+            {
+                User checkAdmin = DbContext.User.Where(u =>
+                u.Login == LoginManagerTextBox.Text.Trim()).FirstOrDefault();
+
+                if (checkAdmin == null)
+                {
+                    User newUser = new User();
+                    newUser.Name = NameManagerTextBox.Text.Trim();
+                    newUser.Surname = SurNameManagerTextBox.Text.Trim();
+                    newUser.Patronomyc = PatronomycManagerTextBox.Text.Trim();
+                    newUser.Login = LoginManagerTextBox.Text.Trim();
+                    newUser.Password = PasswordManagerTextBox.Text.Trim();
+                    newUser.IdRole = 2;
+
+                    DbContext.User.Add(newUser);
+                    DbContext.SaveChanges();
+
+                    MessageBox.Show("Администратор успешно зарегистрирован", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    UpdateListView();
+                }
+                else
+                {
+                    MessageBox.Show("Логин уже занят", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста заполните поля", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

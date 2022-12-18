@@ -88,5 +88,27 @@ namespace AutoPartsStore.Windows
                 EnterButton_Click(null, new RoutedEventArgs());
             }
         }
+
+        private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (ShowPasswordCheckBox.IsChecked == false)
+            {
+                CheckPasswordTextBox.Text = PasswordPasswordBox.Password;
+
+                CheckPasswordTextBox.Visibility = Visibility.Visible;
+                PasswordPasswordBox.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ShowPasswordCheckBox.IsChecked == true)
+            {
+                PasswordPasswordBox.Password = CheckPasswordTextBox.Text;
+
+                CheckPasswordTextBox.Visibility = Visibility.Hidden;
+                PasswordPasswordBox.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

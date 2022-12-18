@@ -85,15 +85,26 @@ namespace AutoPartsStore.Windows.ManagerWindows
             if (!string.IsNullOrEmpty(ManufracturerNameTextBox.Text) &&
                 CountryManufracturerComboBox.SelectedIndex != -1)
             {
-                Manufracturer newManufracturer = new Manufracturer();
-                newManufracturer.ManufracturerName = ManufracturerNameTextBox.Text;
-                newManufracturer.IdCountry = CountryManufracturerComboBox.SelectedIndex + 1;
+                Manufracturer checkManufracturer = DbContext.Manufracturer.Where(m =>
+                m.ManufracturerName.ToLower().Contains(ManufracturerNameTextBox.Text.ToLower())).FirstOrDefault();
 
-                DbContext.Manufracturer.Add(newManufracturer);
-                DbContext.SaveChanges();
+                if (checkManufracturer == null)
+                {
+                    Manufracturer newManufracturer = new Manufracturer();
+                    newManufracturer.ManufracturerName = ManufracturerNameTextBox.Text;
+                    newManufracturer.IdCountry = CountryManufracturerComboBox.SelectedIndex + 1;
 
-                MessageBox.Show("Производитель успешно добавлен", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    DbContext.Manufracturer.Add(newManufracturer);
+                    DbContext.SaveChanges();
+
+                    MessageBox.Show("Производитель успешно добавлен", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Производитель с таким наименованием уже зарегистрирован", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 LoadListView();
             }
             else
@@ -105,26 +116,29 @@ namespace AutoPartsStore.Windows.ManagerWindows
 
         private void EditManufracturer_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(ManufracturerNameTextBox.Text) &&
-                CountryManufracturerComboBox.SelectedIndex != -1)
+            if (ManufracturerListView.SelectedItem != null)
             {
-                string[] temp = ManufracturerListView.SelectedItem.ToString().Split(':');
+                if (!string.IsNullOrEmpty(ManufracturerNameTextBox.Text) &&
+                    CountryManufracturerComboBox.SelectedIndex != -1)
+                {
+                    string[] temp = ManufracturerListView.SelectedItem.ToString().Split(':');
 
-                Manufracturer selectedManufracturer = DbContext.Manufracturer.Where(m =>
-                m.IdManufracturer == Convert.ToInt32(temp[0])).FirstOrDefault();
+                    Manufracturer selectedManufracturer = DbContext.Manufracturer.Where(m =>
+                    m.IdManufracturer == Convert.ToInt32(temp[0])).FirstOrDefault();
 
-                selectedManufracturer.ManufracturerName = ManufracturerNameTextBox.Text;
-                selectedManufracturer.IdCountry = CountryManufracturerComboBox.SelectedIndex + 1;
+                    selectedManufracturer.ManufracturerName = ManufracturerNameTextBox.Text;
+                    selectedManufracturer.IdCountry = CountryManufracturerComboBox.SelectedIndex + 1;
 
-                MessageBox.Show("Производитель успешно изменён", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                DbContext.SaveChanges();
-                LoadListView();
-            }
-            else
-            {
-                MessageBox.Show("Пожалуйста, заполните поля", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Производитель успешно изменён", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    DbContext.SaveChanges();
+                    LoadListView();
+                }
+                else
+                {
+                    MessageBox.Show("Пожалуйста, заполните поля", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 
@@ -133,26 +147,29 @@ namespace AutoPartsStore.Windows.ManagerWindows
             if (!string.IsNullOrEmpty(ManufracturerNameTextBox.Text) &&
                 CountryManufracturerComboBox.SelectedIndex != -1)
             {
-                if (MessageBox.Show("Вы уверены, что хотите удалить выбранного произодителя?" +
-                    "\nВнимание, если вы удалите производителя, все товары связанные с ним так же будут удалены", 
-                    "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question) 
-                    == MessageBoxResult.Yes)
+                if (ManufracturerListView.SelectedItem != null)
                 {
-                    string[] temp = ManufracturerListView.SelectedItem.ToString().Split(':');
+                    if (MessageBox.Show("Вы уверены, что хотите удалить выбранного произодителя?" +
+                        "\nВнимание, если вы удалите производителя, все товары связанные с ним так же будут удалены",
+                        "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                        == MessageBoxResult.Yes)
+                    {
+                        string[] temp = ManufracturerListView.SelectedItem.ToString().Split(':');
 
-                    Manufracturer selectedManufracturer = DbContext.Manufracturer.Where(m =>
-                    m.IdManufracturer == Convert.ToInt32(temp[0])).FirstOrDefault();
+                        Manufracturer selectedManufracturer = DbContext.Manufracturer.Where(m =>
+                        m.IdManufracturer == Convert.ToInt32(temp[0])).FirstOrDefault();
 
-                    DbContext.Manufracturer.Remove(selectedManufracturer);
-                    DbContext.SaveChanges();
+                        DbContext.Manufracturer.Remove(selectedManufracturer);
+                        DbContext.SaveChanges();
 
-                    MessageBox.Show("Производитель успешно удалён", "Информация",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    LoadListView();
-                }
-                else
-                {
-                    return;
+                        MessageBox.Show("Производитель успешно удалён", "Информация",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadListView();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
             else

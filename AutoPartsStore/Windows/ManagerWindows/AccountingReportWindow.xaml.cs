@@ -157,8 +157,10 @@ namespace AutoPartsStore.Windows.ManagerWindows
 
                     for (int i = 0; i < selectedOrders.Count; i++)
                     {
-                        table.Cell(i + 2, 1).Range.Text = selectedOrders[i].IdBusket.ToString();
+                        Busketautopart bs = DbContext.Busketautopart.Where(b =>
+                        b.IdBusket == selectedOrders[i].IdBusket).FirstOrDefault();
 
+                        table.Cell(i + 2, 1).Range.Text = bs.IdAutopartNavigation.AutoPartName;
                         table.Cell(i + 2, 1).Range.Font.Size = 14;
 
                         List<Busketautopart> temp = new List<Busketautopart>();
@@ -193,6 +195,11 @@ namespace AutoPartsStore.Windows.ManagerWindows
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateListView();
         }
     }
 }

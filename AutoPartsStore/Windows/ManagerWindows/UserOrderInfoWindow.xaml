@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoPartsStore.Windows.ManagerWindows"
         mc:Ignorable="d"
-        Title="UserOrderInfoWindow" Height="310" Width="800"
-        MinHeight="500" MinWidth="775">
+        Title="Корзина покупателя" Height="310" Width="800"
+        MinHeight="500" MinWidth="775"
+        SizeChanged="Window_SizeChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

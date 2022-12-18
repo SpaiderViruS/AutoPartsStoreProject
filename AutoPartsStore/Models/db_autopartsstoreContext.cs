@@ -13,7 +13,6 @@ namespace AutoPartsStore.Models
         public db_autopartsstoreContext()
         {
         }
-
         public static db_autopartsstoreContext DbContext { get; private set; }
 
         static db_autopartsstoreContext() => DbContext = new db_autopartsstoreContext();
@@ -186,7 +185,6 @@ namespace AutoPartsStore.Models
                 entity.HasOne(d => d.IdmanufracturerNavigation)
                     .WithMany(p => p.Characteristik)
                     .HasForeignKey(d => d.Idmanufracturer)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Characteristik_Manufracturer");
             });
 

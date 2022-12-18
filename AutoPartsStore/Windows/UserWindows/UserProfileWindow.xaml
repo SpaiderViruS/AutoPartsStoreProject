@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoPartsStore.Windows.UserWindows"
         mc:Ignorable="d"
-        Title="UserProfileWindow" Height="450" Width="800"
+        Title="Профиль покупателя" Height="450" Width="800"
+        MinHeight="425" MinWidth="775"
         Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>

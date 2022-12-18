@@ -103,5 +103,10 @@ namespace AutoPartsStore.Windows.ManagerWindows
                 return;
             }
         }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateListView();
+        }
     }
 }

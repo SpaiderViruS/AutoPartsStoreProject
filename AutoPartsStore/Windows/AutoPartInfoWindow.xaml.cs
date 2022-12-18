@@ -26,6 +26,8 @@ namespace AutoPartsStore.Windows
         public static db_autopartsstoreContext DbContext;
         User currentUser { get; set; }
         Autopart Autopart { get; set; }
+        Review review;
+        double totalRaiting = 0;
         public AutoPartInfoWindow(Autopart autopart, User user)
         {
             InitializeComponent();
@@ -72,19 +74,18 @@ namespace AutoPartsStore.Windows
                         if (b.IdAutopart == Autopart.IdAutoPart)
                         {
                             WriteReviewButton.Visibility = Visibility.Visible;
-                            return;
+                            break;
                         }
                     }
                 }
 
-                Review tempReview = DbContext.Review.Where(r =>
-                r.IdUser == currentUser.IdUser).FirstOrDefault();
-                foreach (Review review in checkReview)
+                review = DbContext.Review.Where(r =>
+                r.IdUser == currentUser.IdUser && r.IdAutoPart == Autopart.IdAutoPart).FirstOrDefault();
+
+                if (review != null)
                 {
-                    if (tempReview.IdUser == review.IdUser)
-                    {
-                        WriteReviewButton.Content = "Редактировать отзыв";
-                    }
+                    WriteReviewButton.Content = "Редактировать отзыв";
+
                 }
             }
             else
@@ -114,17 +115,21 @@ namespace AutoPartsStore.Windows
         private void LoadReviews()
         {
             List<Review> reviews = new List<Review>();
-            reviews = db_autopartsstoreContext.DbContext.Review.Where(r =>
+            reviews = DbContext.Review.Where(r =>
             r.IdAutoPart == Autopart.IdAutoPart).ToList();
 
             ReviewStackPanel.Children.Clear();
             foreach (Review rvw in reviews)
             {
+                totalRaiting += rvw.Raiting;
                 ReviewStackPanel.Children.Add(new ReviewUserControl(rvw)
                 {
                     Width = GetOptimizedWidth()
                 });
             }
+            totalRaiting = totalRaiting / reviews.Count;
+            TotalRaitingLabel.Content = $"Общий рейтинг: {totalRaiting}";
+            totalRaiting = 0;
         }
 
         private void LoadImage()
@@ -160,14 +165,6 @@ namespace AutoPartsStore.Windows
             u.IdStatus == Autopart.IdStatusAutoPart).FirstOrDefault();
                 if (status.StatusName != "Нет в наличии")
                 {
-                    //Busket toBusket = new Busket();
-                    //toBusket.IdAutoPart = Autopart.IdAutoPart;
-                    //toBusket.IdUser = currentUser.IdUser;
-                    //toBusket.OrderStatus = "Формируется";
-
-                    //DbContext.Busket.Add(toBusket);
-                    //DbContext.SaveChanges();
-
                     Busket toBusket = DbContext.Busket.Where(b =>
                     b.IdUser == currentUser.IdUser).FirstOrDefault();
 
@@ -213,8 +210,16 @@ namespace AutoPartsStore.Windows
 
         private void WriteReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAddReviewWindow userAddReviewWindow = new UserAddReviewWindow(currentUser, Autopart);
-            userAddReviewWindow.ShowDialog();
+            if (WriteReviewButton.Content.ToString() == "Редактировать отзыв")
+            {
+                UserAddReviewWindow userAddReviewWindow = new UserAddReviewWindow(currentUser, Autopart, review);
+                userAddReviewWindow.ShowDialog();
+            }
+            else
+            {
+                UserAddReviewWindow userAddReviewWindow = new UserAddReviewWindow(currentUser, Autopart, null);
+                userAddReviewWindow.ShowDialog();
+            }
             LoadReviews();
         }
     }

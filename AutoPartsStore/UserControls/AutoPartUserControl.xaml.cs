@@ -38,11 +38,19 @@ namespace AutoPartsStore.UserControls
 
         private void LoadLabels()
         {
-            AutoPartNameLabel.Content = Autopart.AutoPartName;
-            CostLabel.Content = Autopart.Cost;
+            AutoPartNameLabel.Content = $"Наименование: {Autopart.AutoPartName}";
+            CostLabel.Content = $"Стоимость: {Autopart.Cost} ₽";
             int statudID = Autopart.IdStatusAutoPart;
             Status statusTest = db_autopartsstoreContext.DbContext.Status.Where(u => u.IdStatus == Autopart.IdStatusAutoPart).FirstOrDefault();
             IDStatusAutoPartLabel.Content = statusTest.StatusName;
+            if (statusTest.IdStatus == 2)
+            {
+                IDStatusAutoPartLabel.Foreground = Brushes.Red;
+            }
+            else
+            {
+                IDStatusAutoPartLabel.Foreground = Brushes.Green;
+            }
 
         }
 

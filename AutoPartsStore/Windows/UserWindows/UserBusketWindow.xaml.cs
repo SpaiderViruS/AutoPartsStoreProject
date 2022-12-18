@@ -62,6 +62,7 @@ namespace AutoPartsStore.Windows.UserWindows
                     }
                 }
                 TotalCostLabel.Content = $"К оплате {totalCost} ₽";
+                totalCost = 0;
             }
 
             if (BusketListView.Items.Count == 0)
@@ -131,6 +132,11 @@ namespace AutoPartsStore.Windows.UserWindows
                 MessageBox.Show("У вас нету товаров в коризне, чтобы оформить заказ", "Уведомление",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            LoadBusket();
         }
     }
 }

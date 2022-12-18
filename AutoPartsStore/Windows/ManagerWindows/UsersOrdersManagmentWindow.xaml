@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoPartsStore.Windows.ManagerWindows"
         mc:Ignorable="d"
-        Title="UsersOrdersManagmentWindow" Height="500" Width="900">
+        Title="Заказы покупателей" Height="500" Width="900"
+        MinHeight="475" MinWidth="875"
+        SizeChanged="Window_SizeChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

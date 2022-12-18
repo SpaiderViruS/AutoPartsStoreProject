@@ -23,13 +23,40 @@ namespace AutoPartsStore.Windows.UserWindows
         db_autopartsstoreContext DbContext;
         User User { get; set; }
         Autopart Autopart { get; set; }
+        Review Review { get; set; }
         int raiting = 5;
-        public UserAddReviewWindow(User user, Autopart autopart)
+        public UserAddReviewWindow(User user, Autopart autopart, Review review)
         {
             InitializeComponent();
-            DbContext = AutoPartInfoWindow.DbContext;
+            DbContext = MainWindow.context;
             User = user;
             Autopart = autopart;
+            Review = review;
+
+            if (Review != null)
+            {
+                ReviewRichBox.Document.Blocks.Add(new Paragraph(new Run(Review.Description)));
+                Title = "Редактировать отзыв";
+
+                switch (Review.Raiting)
+                {
+                    case 1:
+                        OneStarImage_MouseLeftButtonDown(null, null);
+                        break;
+                    case 2:
+                        TwoStarImage_MouseLeftButtonDown(null, null);
+                        break;
+                    case 3:
+                        ThreeStarImage_MouseLeftButtonDown(null, null);
+                        break;
+                    case 4:
+                        FourStarImage_MouseLeftButtonDown(null, null);
+                        break;
+                    case 5:
+                        FiveStarImage_MouseLeftButtonDown(null, null);
+                        break;
+                }
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -44,18 +71,30 @@ namespace AutoPartsStore.Windows.UserWindows
 
             if (/*!string.IsNullOrEmpty(text.Text) && */raiting != 0)
             {
-                Review review = new Review();
-                review.Raiting = raiting;
-                review.Description = text.Text;
-                review.IdAutoPart = Autopart.IdAutoPart;
-                review.IdUser = User.IdUser;
 
-                DbContext.Review.Add(review);
-                DbContext.SaveChanges();
+                if (Review != null)
+                {
+                    Review.Raiting = raiting;
+                    Review.Description = text.Text;
+                    DbContext.SaveChanges();
 
-                MessageBox.Show("Отзыв оставлен", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Отзыв изменён", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    Review review = new Review();
+                    review.Raiting = raiting;
+                    review.Description = text.Text;
+                    review.IdAutoPart = Autopart.IdAutoPart;
+                    review.IdUser = User.IdUser;
 
+                    DbContext.Review.Add(review);
+                    DbContext.SaveChanges();
+
+                    MessageBox.Show("Отзыв оставлен", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 Close();
             }
             else

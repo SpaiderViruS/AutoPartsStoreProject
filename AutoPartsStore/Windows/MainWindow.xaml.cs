@@ -106,6 +106,7 @@ namespace AutoPartsStore
                     a.Cost).ToList();
                 }
             }
+            // Фильтрация
             if (FilterListView.SelectedIndex != 1)
             {
                 if (FilterListView.SelectedIndex == 1)
@@ -132,17 +133,26 @@ namespace AutoPartsStore
                     Width = GetOptimizedWidth()
                 });
             }
+
+            if (AutoPathListView.Items.Count <= 0)
+            {
+                NoItemslabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                NoItemslabel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private double GetOptimizedWidth()
         {
             if (WindowState == WindowState.Maximized)
             {
-                return (RenderSize.Width - 55) / 1.25;
+                return (RenderSize.Width - 55) / 1.15;
             }
             else
             {
-                return (Width - 55) / 1.25;
+                return (Width - 55) / 1.15;
             }
         }
 

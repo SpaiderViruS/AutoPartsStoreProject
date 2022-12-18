@@ -85,15 +85,31 @@ namespace AutoPartsStore.Windows.ManagerWindows
             if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
                 ManufracturerComboBox.SelectedIndex != -1)
             {
-                Characteristik newcharacteristik = new Characteristik();
-                newcharacteristik.Description = CharacteristikNameTextBox.Text;
-                newcharacteristik.Idmanufracturer = ManufracturerComboBox.SelectedIndex + 1;
+                Manufracturer selectedManufracturer = DbContext.Manufracturer.Where(m =>
+                m.ManufracturerName.ToLower().Contains(ManufracturerComboBox.SelectedItem.ToString().ToLower())).FirstOrDefault();
 
-                DbContext.Characteristik.Add(newcharacteristik);
-                DbContext.SaveChanges();
+                Characteristik checkCharacteristik = DbContext.Characteristik.Where(c =>
+                c.Description.ToLower().Contains(CharacteristikNameTextBox.Text.ToLower())
+                && c.Idmanufracturer == selectedManufracturer.IdManufracturer).FirstOrDefault();
 
-                MessageBox.Show("Характеристика успешно добавлена", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                if (checkCharacteristik == null)
+                {
+
+                    Characteristik newcharacteristik = new Characteristik();
+                    newcharacteristik.Description = CharacteristikNameTextBox.Text;
+                    newcharacteristik.Idmanufracturer = selectedManufracturer.IdManufracturer;
+
+                    DbContext.Characteristik.Add(newcharacteristik);
+                    DbContext.SaveChanges();
+
+                    MessageBox.Show("Характеристика успешно добавлена", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);                    
+                }
+                else
+                {
+                    MessageBox.Show("Такая характеристика уже существует", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 LoadListView();
             }
             else
@@ -105,59 +121,68 @@ namespace AutoPartsStore.Windows.ManagerWindows
 
         private void EditCharacteristik_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
-                ManufracturerComboBox.SelectedIndex != -1)
+            if (CharacteristikListView.SelectedItem != null)
             {
-                string[] temp = CharacteristikListView.SelectedItem.ToString().Split(':');
-
-                Characteristik selectedCharacteristik = DbContext.Characteristik.Where(m =>
-                m.IdCharacteristik == Convert.ToInt32(temp[0])).FirstOrDefault();
-
-                selectedCharacteristik.Description = CharacteristikNameTextBox.Text;
-                selectedCharacteristik.Idmanufracturer = ManufracturerComboBox.SelectedIndex + 1;
-
-                MessageBox.Show("Характеристика успешно изменена", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadListView();
-            }
-            else
-            {
-                MessageBox.Show("Пожалуйста, заполните поля", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        private void DeleteCharacteristik_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
-                ManufracturerComboBox.SelectedIndex != -1)
-            {
-                if (MessageBox.Show("Вы уверены, что хотите удалить выбранную характеристику?" +
-                    "\nВнимание, если вы удалите характеристику, все товары связанные с ним так же будут удалены",
-                    "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question)
-                    == MessageBoxResult.Yes)
+                if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
+                    ManufracturerComboBox.SelectedIndex != -1)
                 {
                     string[] temp = CharacteristikListView.SelectedItem.ToString().Split(':');
 
                     Characteristik selectedCharacteristik = DbContext.Characteristik.Where(m =>
                     m.IdCharacteristik == Convert.ToInt32(temp[0])).FirstOrDefault();
 
-                    DbContext.Characteristik.Remove(selectedCharacteristik);
-                    DbContext.SaveChanges();
+                    Manufracturer selectedManufracturer = DbContext.Manufracturer.Where(m =>
+                    m.ManufracturerName.ToLower().Contains(ManufracturerComboBox.SelectedItem.ToString().ToLower())).FirstOrDefault();
 
-                    MessageBox.Show("Производитель успешно удалён", "Информация",
+                    selectedCharacteristik.Description = CharacteristikNameTextBox.Text;
+                    selectedCharacteristik.Idmanufracturer = selectedManufracturer.IdManufracturer;
+
+                    MessageBox.Show("Характеристика успешно изменена", "Информация",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                     LoadListView();
                 }
                 else
                 {
-                    return;
+                    MessageBox.Show("Пожалуйста, заполните поля", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            else
+        }
+
+        private void DeleteCharacteristik_Click(object sender, RoutedEventArgs e)
+        {
+            if (CharacteristikListView.SelectedItem != null)
             {
-                MessageBox.Show("Пожалуйста, заполните поля", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                if (!string.IsNullOrEmpty(CharacteristikNameTextBox.Text) &&
+                    ManufracturerComboBox.SelectedIndex != -1)
+                {
+                    if (MessageBox.Show("Вы уверены, что хотите удалить выбранную характеристику?" +
+                        "\nВнимание, если вы удалите характеристику, все товары связанные с ним так же будут удалены",
+                        "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                        == MessageBoxResult.Yes)
+                    {
+                        string[] temp = CharacteristikListView.SelectedItem.ToString().Split(':');
+
+                        Characteristik selectedCharacteristik = DbContext.Characteristik.Where(m =>
+                        m.IdCharacteristik == Convert.ToInt32(temp[0])).FirstOrDefault();
+
+                        DbContext.Characteristik.Remove(selectedCharacteristik);
+                        DbContext.SaveChanges();
+
+                        MessageBox.Show("Производитель успешно удалён", "Информация",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadListView();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Пожалуйста, заполните поля", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
     }

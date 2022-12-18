@@ -43,38 +43,42 @@ namespace AutoPartsStore.Windows.UserWindows
             Busket busket = DbContext.Busket.Where(b =>
             b.IdUser == User.IdUser).FirstOrDefault();
 
-            foreach (Order order in displayOrder)
+            if (busket != null)
             {
-                if (busket.IdBusket == order.IdBusket)
-                {
-                    if (busket.OrderStatus != "Формируется")
-                    {
-                        OrdersListView.Items.Add(new OrderUserControl(order)
-                        {
-                            Width = GetOptimizedWidth()
-                        });
-                    }
-                }
-            }
-            if (OrdersListView.Items.Count <= 0)
-            {
-                List<Busketautopart> displayBusket = new List<Busketautopart>();
-                displayBusket = DbContext.Busketautopart.ToList();
 
-                foreach (Busketautopart bsk in displayBusket)
+                foreach (Order order in displayOrder)
                 {
-                    if (bsk.IdBusket == busket.IdBusket)
+                    if (busket.IdBusket == order.IdBusket)
                     {
                         if (busket.OrderStatus != "Формируется")
                         {
-                            OrdersListView.Items.Add(new UserBusketUserControl(bsk)
+                            OrdersListView.Items.Add(new OrderUserControl(order)
                             {
                                 Width = GetOptimizedWidth()
                             });
                         }
                     }
                 }
-                AccountingCheckBtn.IsEnabled = false;
+                if (OrdersListView.Items.Count <= 0)
+                {
+                    List<Busketautopart> displayBusket = new List<Busketautopart>();
+                    displayBusket = DbContext.Busketautopart.ToList();
+
+                    foreach (Busketautopart bsk in displayBusket)
+                    {
+                        if (bsk.IdBusket == busket.IdBusket)
+                        {
+                            if (busket.OrderStatus != "Формируется")
+                            {
+                                OrdersListView.Items.Add(new UserBusketUserControl(bsk)
+                                {
+                                    Width = GetOptimizedWidth()
+                                });
+                            }
+                        }
+                    }
+                    AccountingCheckBtn.IsEnabled = false;
+                }
             }
         }
 
@@ -98,7 +102,7 @@ namespace AutoPartsStore.Windows.UserWindows
         private void AccountingCheckBtn_Click(object sender, RoutedEventArgs e)
         {
             List<Busketautopart> displayBusket = new List<Busketautopart>();
-            displayBusket = DbContext.Busketautopart.ToList();
+            //displayBusket = DbContext.Busketautopart.ToList();
 
             foreach (OrderUserControl ubc in
                     OrdersListView.Items)
@@ -131,7 +135,7 @@ namespace AutoPartsStore.Windows.UserWindows
                 range = wordDoc.Range(ref start, ref end);
 
                 range.Text = $"Компания Би-би\n";
-#warning НЕ СКЛАДЫВАЕТСЯ КОЛИЧЕСТВО
+
                 range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
                 range.ParagraphFormat.SpaceAfter = 0;
                 range.Font.Name = "Times New Roman";

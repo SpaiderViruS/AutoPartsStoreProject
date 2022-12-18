@@ -83,6 +83,8 @@ namespace AutoPartsStore.Windows.ManagerWindows
         {
             if (Autopart != null)
             {
+                Title = "Редактирование запчасти";
+
                 Manufracturer manufracturer = DbContext.Manufracturer.Where(m =>
                 m.IdManufracturer == Autopart.IdManufracturer).FirstOrDefault();
 

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoPartsStore.Windows.AdministratorWindow"
         mc:Ignorable="d"
-        Title="AdministrationWindow" Height="450" Width="800"
+        Title="Окно администратора" Height="450" Width="800"
+        MinHeight="425" MinWidth="775"
         Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
@@ -35,26 +36,28 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Имя менеджера"/>
+            <Label Content="Имя"/>
             <TextBox x:Name="NameManagerTextBox" Grid.Row="1"/>
 
-            <Label Content="Фамилия менеджера" Grid.Row="2"/>
+            <Label Content="Фамилия" Grid.Row="2"/>
             <TextBox x:Name="SurNameManagerTextBox" Grid.Row="3"/>
 
-            <Label Content="Отчество менеджера" Grid.Row="4"/>
+            <Label Content="Отчество " Grid.Row="4"/>
             <TextBox x:Name="PatronomycManagerTextBox" Grid.Row="5"/>
 
-            <Label Content="Логин менеджера" Grid.Row="6"/>
+            <Label Content="Логин" Grid.Row="6"/>
             <TextBox x:Name="LoginManagerTextBox" Grid.Row="7"/>
 
-            <Label Content="Пароль менеджера" Grid.Row="8"/>
+            <Label Content="Пароль" Grid.Row="8"/>
             <TextBox x:Name="PasswordManagerTextBox" Grid.Row="9"/>
 
             <Button x:Name="AddNewManagerButton" Content="Добавить менеджера" Grid.Row="10" Click="AddNewManagerButton_Click"/>
-            <Button x:Name="EditManagerButton" Content="Редактировать менеджера" Grid.Row="11" Click="EditManagerButton_Click"/>
-            <Button x:Name="DeleteMangerButton" Content="Удалить менеджера" Grid.Row="12" Background="Red" Click="DeleteMangerButton_Click"/>
+            <Button x:Name="AddNewAdminisrtarion" Content="Добавить администратора" Grid.Row="11" Click="AddNewAdminisrtarion_Click"/>
+            <Button x:Name="EditManagerButton" Content="Редактировать менеджера" Grid.Row="12" Click="EditManagerButton_Click"/>
+            <Button x:Name="DeleteMangerButton" Content="Удалить менеджера" Grid.Row="13" Background="Red" Click="DeleteMangerButton_Click"/>
         </Grid>
 
         <Label Grid.Row="1" Grid.Column="1" x:Name="SNPLabel"/>
